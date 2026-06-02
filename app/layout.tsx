@@ -9,7 +9,7 @@ const outfit = Outfit({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const siteUrl = "https://novariclabs.com";
+const siteUrl = "https://novariclabs.ai";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
