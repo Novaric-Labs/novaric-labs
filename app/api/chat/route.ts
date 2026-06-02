@@ -1,4 +1,5 @@
 import { anthropic, MODEL, hasApiKey, NOVARIC_CONTEXT } from "@/lib/anthropic";
+import { checkRateLimit } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -24,6 +25,15 @@ export async function POST(req: Request) {
     return Response.json(
       { error: "The assistant is not configured. Set ANTHROPIC_API_KEY to enable it." },
       { status: 503 }
+    );
+  }
+
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (!checkRateLimit(ip)) {
+    return Response.json(
+      { error: "Too many requests. Please wait a moment before trying again." },
+      { status: 429 }
     );
   }
 
