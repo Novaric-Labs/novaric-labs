@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ===== Light theme (softened) — space-separated RGB for Tailwind alpha ===== */
+  --surface: 252 251 248; /* #FCFBF8 soft warm white */
+  --band: 245 242 235; /* #F5F2EB gentle warm band */
+  --card: 255 255 255; /* #FFFFFF */
+  --line: 234 230 221; /* #EAE6DD soft border */
+  --heading: 26 34 78; /* #1A224E softened navy */
+  --body: 90 94 110; /* #5A5E6E */
+  --faint: 142 146 162; /* #8E92A2 */
+
+  --panel: 18 24 64; /* #121840 soft deep navy feature blocks */
+  --panel-fg: 245 246 250; /* #F5F6FA */
+  --panel-muted: 165 171 198; /* #A5ABC6 */
+  --panel-line: 48 56 100; /* #303864 */
+
+  --accent: 217 154 34; /* #D99A22 gold-600 for light */
+}
+
+.dark {
+  /* ===== Dark theme (soft, not pure black) ===== */
+  --surface: 13 16 33; /* #0D1021 */
+  --band: 17 21 42; /* #11152A */
+  --card: 23 28 52; /* #171C34 */
+  --line: 39 45 70; /* #272D46 */
+  --heading: 244 245 249; /* #F4F5F9 */
+  --body: 176 181 198; /* #B0B5C6 */
+  --faint: 124 130 152; /* #7C8298 */
+
+  --panel: 17 21 42; /* #11152A — harmonized band for feature blocks */
+  --panel-fg: 244 245 249;
+  --panel-muted: 158 164 188;
+  --panel-line: 45 52 80;
+
+  --accent: 242 180 65; /* #F2B441 brighter gold for dark */
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Offset anchored scrolling so sections clear the fixed header. */
+  scroll-padding-top: 5rem;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: rgb(var(--surface));
+  color: rgb(var(--body));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Thin custom scrollbar inside the chat panel. */
+.thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--panel-line)) transparent;
+}
+.thin-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--panel-line));
+  border-radius: 9999px;
+}
+
+/* Reusable section heading kicker. */
+.kicker {
+  @apply text-xs font-semibold uppercase tracking-[0.18em];
+  color: rgb(var(--accent));
+}
+
