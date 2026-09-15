@@ -1,10 +1,22 @@
-import Console from "./Console";
+import LabPanel from "./LabPanel";
 
 const CAPS: [string, string][] = [
-  ["Lease processing", "Parse applications, flag exceptions, prep documents for sign-off"],
-  ["Maintenance routing", "Triage requests, match the vendor, schedule, follow up until closed"],
-  ["Tenant communication", "On-brand replies across email and SMS, escalated when stakes rise"],
-  ["Vendor coordination", "Collect quotes, track work orders, reconcile invoices against approved work"],
+  [
+    "Patterns, not bets",
+    "A problem gets promoted only after it has cost several clients real time and money",
+  ],
+  [
+    "Funded by the fieldwork",
+    "Services revenue pays for the build, so the roadmap answers to operators, not a term sheet",
+  ],
+  [
+    "Design partners from day zero",
+    "The people who'll run it help scope it, test it on real volume, and set the order of work",
+  ],
+  [
+    "Co-build or first to run",
+    "Partners can take early access, a seat on the roadmap, or a revenue share in what gets built",
+  ],
 ];
 
 export default function Lab() {
@@ -12,27 +24,28 @@ export default function Lab() {
     <section className="lab" id="lab">
       <div className="wrap">
         <div className="sec-head">
-          <div className="idx mono reveal">03 / From the Lab</div>
-          <h2 className="reveal">An agentic harness for property management.</h2>
+          <div className="idx mono reveal">03 / The Lab</div>
+          <h2 className="reveal">The Lab turns repeat problems into products.</h2>
           <p className="rise">
-            Our first product runs the repetitive back office of a property
-            management company — the email triage, the vendor chase, the document
-            shuffle — as coordinated agents instead of manual queues.
+            Every engagement leaves us with the same observation: some workflow
+            breaks the same way at every client, and nobody has solved it
+            properly. When a pattern shows up often enough, it graduates into the
+            Lab and gets built as a product.
           </p>
         </div>
 
         <div className="cols">
           <div className="rise">
             <span className="mono" style={{ color: "var(--amber)" }}>
-              Pre-launch — taking design partners
+              The incubator model
             </span>
-            <h3>Agents handle the routine. You approve what matters.</h3>
+            <h3>Client work pays for it. Operators shape it.</h3>
             <p>
-              Requests come in the way they always do — an email, a maintenance
-              ticket, a tenant text. The system handles the busywork and holds
-              anything high-stakes for your sign-off: money out, lease terms,
-              anything that carries risk. It plugs into the tools your team
-              already uses.
+              The Lab isn&apos;t a research group or a side bet. It&apos;s funded
+              by the services business, which means a product doesn&apos;t have to
+              raise a round — it has to work for the people who asked for it.
+              Design partners are in the room before the first line of code, and
+              they keep a say in where it goes.
             </p>
             <ul className="caps">
               {CAPS.map(([title, sub]) => (
@@ -42,9 +55,22 @@ export default function Lab() {
                 </li>
               ))}
             </ul>
+
+            <p className="lab-first">
+              <span className="mono">Now in build</span>
+              First out of the Lab: an agentic harness for property management —
+              pre-launch, and taking design partners.
+            </p>
+
             <div className="lab-cta">
               <a
                 className="btn btn-amber"
+                href="mailto:hello@novariclabs.com?subject=Incubator%20Lab%20%E2%80%94%20a%20problem%20worth%20building%20for"
+              >
+                Bring the Lab a problem
+              </a>
+              <a
+                className="btn"
                 href="mailto:hello@novariclabs.com?subject=Property%20management%20harness%20%E2%80%94%20design%20partner"
               >
                 Become a design partner
@@ -52,7 +78,7 @@ export default function Lab() {
             </div>
           </div>
 
-          <Console />
+          <LabPanel />
         </div>
 
         <div className="lab-partners rise">
