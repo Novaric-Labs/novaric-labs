@@ -62,7 +62,7 @@ Then edit `.env.local`:
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | Yes (for AI features) | Powers the chat widget and the SYS-04 assessment. Get one at [console.anthropic.com](https://console.anthropic.com). |
-| `ANTHROPIC_MODEL` | No | Override the model. Defaults to `claude-sonnet-4-20250514`. |
+| `ANTHROPIC_MODEL` | No | Override the model. Defaults to `claude-opus-5`. Keep any override undated — a dated snapshot ID will eventually be retired and take both AI features down. |
 | `NEXT_PUBLIC_FORMSPREE_ID` | No | Formspree form ID for the contact form. If unset, the form falls back to a prefilled `mailto:` to hello@novariclabs.com. |
 
 The site runs fine without an API key — the chat widget and the assessment

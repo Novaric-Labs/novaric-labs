@@ -1,4 +1,4 @@
-import { anthropic, MODEL, hasApiKey, NOVARIC_CONTEXT } from "@/lib/anthropic";
+import { anthropic, MODEL, EFFORT, hasApiKey, NOVARIC_CONTEXT } from "@/lib/anthropic";
 import { checkRateLimit } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
@@ -19,7 +19,7 @@ ${NOVARIC_CONTEXT}
 Output rules:
 - Write 2-3 short paragraphs of plain prose. No headings, no bullet lists, no markdown.
 - Be honest. If their situation suggests they should wait, clean up data first, or start small, say so. Do not oversell.
-- Name the most relevant Novaric service (Agentic Systems, AI Integration & Tooling, or Strategic Advisory) and a realistic starting point.
+- Name the most relevant Novaric system (AI Enablement, Automation, or the Incubator Lab) and a realistic starting point.
 - Address the reader as "you". Be specific to their answers — reference their industry, pain point, and stack.
 - Avoid the words "cutting-edge", "revolutionary", "game-changing", "unlock", and "leverage".
 - End with a concrete, low-pressure next step (e.g. a scoping conversation), referencing the contact form or hello@novariclabs.com.`;
@@ -62,7 +62,10 @@ Write their personalized fit assessment.`;
   try {
     const response = await anthropic.messages.create({
       model: MODEL,
-      max_tokens: 1024,
+      // Headroom for thinking tokens, which count against max_tokens. The
+      // assessment itself is 2-3 paragraphs.
+      max_tokens: 4096,
+      output_config: { effort: EFFORT },
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: userPrompt }],
     });
