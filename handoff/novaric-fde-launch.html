@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novaric Labs — Forward-deployed engineering for AI that ships</title>
+<meta name="description" content="Novaric Labs is a forward-deployed engineering group in Charlotte, NC. We embed with your team to enable AI, automate operations, and incubate new software products — built in your stack, run in production.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#080C13;
+    --hull:#0D1524;
+    --hull-2:#121C2E;
+    --alu:#2A3547;
+    --alu-hi:#4A5A73;
+    --alu-edge:#6C7B93;
+    --fg:#E9EDF4;
+    --fg-soft:#95A0B4;
+    --fg-dim:#5D6980;
+    --amber:#F2A93B;
+    --amber-hot:#FFC86A;
+    --amber-glow:rgba(242,169,59,.35);
+    --ember:#FF6A2A;
+    --bg:var(--void);
+    --surface:var(--hull);
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:var(--void); --surface:var(--hull); } }
+  :root[data-theme="dark"]{ --bg:var(--void); --surface:var(--hull); }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--fg); font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif; font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+  h1,h2,h3{font-family:"Chakra Petch","Helvetica Neue",Arial,sans-serif; margin:0; line-height:1.05}
+  h1{font-size:clamp(2.5rem,5.8vw,4.8rem); font-weight:700; text-transform:uppercase}
+  h2{font-size:clamp(1.9rem,3.8vw,3rem); font-weight:700; text-transform:uppercase}
+  h3{font-size:1.3rem; font-weight:600}
+  p{margin:0} a{color:inherit}
+  .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:.78rem; letter-spacing:.07em; text-transform:uppercase}
+  .wrap{width:min(1180px,calc(100% - 48px)); margin:0 auto; position:relative}
+  @media (max-width:640px){ .wrap{width:min(1180px,calc(100% - 28px))} }
+  .soft{color:var(--fg-soft)}
+  :focus-visible{outline:2px solid var(--amber); outline-offset:3px}
+
+  /* Hull structure: frame rings + stringers */
+  .hull-bg{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.55;
+    background-image:
+      linear-gradient(90deg, rgba(74,90,115,.22) 1px, transparent 1px),
+      repeating-linear-gradient(180deg, transparent 0 158px, rgba(74,90,115,.18) 158px 160px, rgba(108,123,147,.28) 160px 162px, rgba(74,90,115,.18) 162px 164px, transparent 164px 176px);
+    background-size:96px 100%, 100% 176px;
+  }
+  .hull-bg::after{content:""; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 30%, transparent 30%, rgba(8,12,19,.75) 100%)}
+  main,header,footer{position:relative; z-index:1}
+
+  /* Scroll rail: rocket silhouette with a marker */
+  .rail{position:fixed; left:18px; top:50%; transform:translateY(-50%); z-index:5; width:34px; display:none}
+  @media (min-width:1320px){ .rail{display:block} }
+  .rail svg{width:34px; height:240px; display:block; overflow:visible}
+  .rail .mk{transition:transform .2s linear}
+  .rail .lbl{font-family:"JetBrains Mono",monospace; font-size:9px; fill:var(--fg-dim); letter-spacing:.08em}
+
+  /* Metal helpers */
+  .metal{background:linear-gradient(180deg,var(--hull-2),var(--hull)); position:relative}
+  .brushed{background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px), linear-gradient(180deg,var(--hull-2),var(--hull))}
+  .rivets::before{content:""; position:absolute; width:5px; height:5px; border-radius:50%; background:var(--alu-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 0 transparent; top:8px; left:8px}
+  .rivets::after{content:""; position:absolute; width:5px; height:5px; border-radius:50%; background:var(--alu-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.35); bottom:8px; right:8px}
+  .rivets .rv{position:absolute; width:5px; height:5px; border-radius:50%; background:var(--alu-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+  .rivets .rv.tr{top:8px; right:8px} .rivets .rv.bl{bottom:8px; left:8px}
+  .hazard{background:repeating-linear-gradient(135deg, var(--amber) 0 12px, #14110A 12px 24px)}
+
+  /* Bulkheads between compartments */
+  .bulkhead{position:relative; height:34px; border-top:1px solid var(--alu-edge); border-bottom:1px solid var(--alu-edge); background:linear-gradient(180deg,#1A2538,#0F1728 50%,#1A2538); box-shadow:0 10px 30px -10px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08)}
+  .bulkhead::before{content:""; position:absolute; left:0; right:0; top:50%; height:5px; transform:translateY(-50%);
+    background-image:radial-gradient(circle, var(--alu-edge) 1.6px, transparent 2px); background-size:28px 5px; opacity:.9}
+  .bulkhead .sta{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:var(--void); border:1px solid var(--alu-hi); padding:.3rem .8rem; color:var(--fg-soft); white-space:nowrap}
+  .bulkhead .sta b{color:var(--amber); font-weight:500}
+
+  /* Buttons */
+  .btn{display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 1.4rem; font-family:"Chakra Petch",sans-serif; font-weight:600; letter-spacing:.06em; text-transform:uppercase; font-size:.85rem; text-decoration:none; border:1px solid var(--alu-hi); color:var(--fg); position:relative; overflow:hidden; transition:border-color .2s,color .2s,box-shadow .2s; clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px)); background:var(--hull-2)}
+  .btn::before{content:""; position:absolute; inset:0; background:var(--amber); transform:translateX(-101%); transition:transform .3s cubic-bezier(.7,0,.2,1); z-index:-1}
+  .btn:hover::before{transform:translateX(0)}
+  .btn:hover{color:#1A1204; border-color:var(--amber); box-shadow:0 0 30px var(--amber-glow)}
+  .btn-amber{background:var(--amber); color:#1A1204; border-color:var(--amber)} .btn-amber::before{background:var(--amber-hot)}
+
+  /* Nav as instrument panel */
+  header.nav{position:sticky; top:0; z-index:30; background:rgba(8,12,19,.78); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--alu-hi); box-shadow:0 1px 0 rgba(255,255,255,.05) inset}
+  .nav-row{display:flex; align-items:center; justify-content:space-between; height:66px; gap:1rem}
+  .brand{font-family:"Chakra Petch",sans-serif; font-weight:700; font-size:1.15rem; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; display:flex; align-items:center; gap:.7rem}
+  .mark{width:26px; height:26px; position:relative; flex:none}
+  .mark::before{content:""; position:absolute; inset:0; border:2px solid var(--amber); clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%)}
+  .mark::after{content:""; position:absolute; left:9px; right:9px; top:9px; bottom:6px; background:var(--amber); box-shadow:0 0 12px var(--amber-glow)}
+  .nav-links{display:flex; gap:2rem}
+  .nav-links a{text-decoration:none; color:var(--fg-soft); position:relative; padding:.3rem 0}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:0; height:1px; width:0; background:var(--amber); transition:width .25s}
+  .nav-links a:hover{color:var(--fg)} .nav-links a:hover::after{width:100%}
+  .tele{display:none; gap:1.2rem; color:var(--fg-soft)}
+  .tele b{color:var(--amber); font-weight:500} .tele i{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);display:inline-block;margin-right:.4rem;animation:pulse 2s infinite}
+  @media (min-width:1120px){ .tele{display:inline-flex} }
+  @media (max-width:820px){ .nav-links{display:none} }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  /* Hero: payload bay */
+  .hero{min-height:calc(100vh - 66px); display:flex; align-items:center; padding:56px 0 72px; position:relative; overflow:hidden}
+  .hero .cols{display:grid; grid-template-columns:1.02fr .98fr; gap:40px; align-items:center}
+  @media (max-width:960px){ .hero .cols{grid-template-columns:1fr; gap:36px} .hero{min-height:0} }
+  .checklist{margin-bottom:1.4rem; color:var(--fg-soft); min-height:5.2em}
+  .checklist div{display:flex; gap:.8rem; opacity:0; transform:translateX(-6px); animation:bootline .35s ease forwards}
+  .checklist div:nth-child(1){animation-delay:.2s} .checklist div:nth-child(2){animation-delay:.7s} .checklist div:nth-child(3){animation-delay:1.2s} .checklist div:nth-child(4){animation-delay:1.7s}
+  .checklist .ok{color:var(--amber)}
+  @keyframes bootline{to{opacity:1;transform:none}}
+  .hero h1{opacity:0; animation:fadein .8s ease 2.1s forwards}
+  .hero h1 .line{display:block; overflow:hidden} .hero h1 .line span{display:inline-block; transform:translateY(110%); animation:lineup .7s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero h1 .line:nth-child(1) span{animation-delay:2.15s} .hero h1 .line:nth-child(2) span{animation-delay:2.28s} .hero h1 .line:nth-child(3) span{animation-delay:2.41s}
+  .hero h1 em{font-style:normal; color:var(--amber); text-shadow:0 0 30px var(--amber-glow)}
+  @keyframes fadein{to{opacity:1}} @keyframes lineup{to{transform:none}}
+  .hero .lede,.hero .actions,.hero .strip{opacity:0; animation:fadein .8s ease forwards}
+  .hero .lede{animation-delay:2.7s; font-size:1.18rem; color:var(--fg-soft); margin:1.6rem 0 2.2rem; max-width:52ch}
+  .hero .actions{animation-delay:2.9s; display:flex; gap:.9rem; flex-wrap:wrap}
+  .hero .strip{animation-delay:3.1s; display:grid; grid-template-columns:repeat(3,1fr); margin-top:3rem; border:1px solid var(--alu-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  .hero .strip div{padding:1rem 1.1rem 1rem 1.6rem; border-right:1px solid var(--alu); position:relative}
+  .hero .strip div::before{content:""; position:absolute; left:.65rem; top:1.25rem; width:6px; height:6px; border-radius:50%; background:var(--amber); box-shadow:0 0 8px var(--amber)}
+  .hero .strip div:last-child{border-right:0}
+  .hero .strip b{display:block; font-family:"Chakra Petch",sans-serif; font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:.95rem; margin-bottom:.2rem}
+  .hero .strip span{font-size:.88rem; color:var(--fg-soft)}
+  @media (max-width:640px){ .hero .strip{grid-template-columns:1fr} .hero .strip div{border-right:0;border-bottom:1px solid var(--alu)} .hero .strip div:last-child{border-bottom:0} }
+
+  /* Supernova mechanism */
+  .mech{position:relative; width:100%; max-width:600px; margin:0 auto; aspect-ratio:1; overflow:visible}
+  .mech .stars{position:absolute; inset:-20%; border-radius:50%; pointer-events:none; opacity:.9;
+    background-image:radial-gradient(1.2px 1.2px at 12% 18%,#fff 60%,transparent), radial-gradient(1px 1px at 78% 12%,#fff 60%,transparent), radial-gradient(1.2px 1.2px at 30% 82%,#fff 60%,transparent), radial-gradient(1px 1px at 88% 66%,#fff 60%,transparent), radial-gradient(1px 1px at 55% 6%,#fff 60%,transparent), radial-gradient(1.2px 1.2px at 6% 58%,#fff 60%,transparent), radial-gradient(1px 1px at 68% 90%,#fff 60%,transparent), radial-gradient(1.4px 1.4px at 92% 36%,#FFC86A 60%,transparent), radial-gradient(1px 1px at 40% 40%,#fff 60%,transparent), radial-gradient(1px 1px at 22% 66%,#fff 60%,transparent), radial-gradient(1px 1px at 60% 70%,#fff 60%,transparent), radial-gradient(1px 1px at 84% 84%,#fff 60%,transparent);
+    mask-image:radial-gradient(circle,#000 40%,transparent 72%); -webkit-mask-image:radial-gradient(circle,#000 40%,transparent 72%); animation:drift 90s linear infinite}
+  @keyframes drift{to{transform:rotate(360deg)}}
+  .mech .nebula{position:absolute; inset:8%; border-radius:50%; pointer-events:none; background:radial-gradient(circle at 50% 50%, rgba(255,200,106,.28), rgba(242,169,59,.14) 30%, rgba(255,106,42,.05) 52%, transparent 68%); filter:blur(28px); animation:breathe 4s ease-in-out infinite; opacity:0; animation-name:nebulain,breathe; animation-duration:1.2s,4s; animation-delay:2s,3.2s; animation-fill-mode:forwards,none}
+  @keyframes nebulain{to{opacity:1}} @keyframes breathe{0%,100%{transform:scale(.94)}50%{transform:scale(1.08)}}
+  .mech svg{width:100%; height:100%; display:block; overflow:visible; position:relative}
+  .mech svg *{transform-box:view-box}
+  .ring{transform-origin:300px 300px}
+  .r1{animation:spin 50s linear infinite} .r2{animation:spin 30s linear infinite reverse} .r3{animation:spin 14s linear infinite} .r4{animation:spin 80s linear infinite reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .arc{filter:url(#glow)}
+  .rays{transform-origin:300px 300px; animation:spin 120s linear infinite, flicker 3s ease-in-out infinite}
+  @keyframes flicker{0%,100%{opacity:.18}50%{opacity:.34}}
+  .core{transform-origin:300px 300px; transform:scale(.45); opacity:.35; animation:ignite 1s cubic-bezier(.2,1.2,.3,1) 2s forwards, corepulse 2.4s ease-in-out 3s infinite}
+  @keyframes ignite{0%{transform:scale(.45);opacity:.35}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+  @keyframes corepulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  .shock{transform-origin:300px 300px; transform:scale(.3); opacity:0; animation:shock 6s cubic-bezier(.1,.7,.3,1) infinite}
+  .shock.s2{animation-delay:1.5s} .shock.s3{animation-delay:3s}
+  .shock.s1{animation-delay:2.2s} .shock.s2{animation-delay:4.2s} .shock.s3{animation-delay:6.2s}
+  @keyframes shock{0%{transform:scale(.3);opacity:0}6%{opacity:.45}100%{transform:scale(5);opacity:0}}
+  .burst{transform-origin:300px 300px; transform:scale(.2); opacity:0; animation:burst 1.6s cubic-bezier(.1,.8,.2,1) 2.05s forwards}
+  @keyframes burst{0%{transform:scale(.2);opacity:0}8%{opacity:.7}100%{transform:scale(5);opacity:0}}
+  .spark{transform-origin:300px 300px; opacity:0; animation:spark var(--dur) cubic-bezier(.2,.6,.5,1) var(--delay) infinite}
+  @keyframes spark{0%{transform:rotate(var(--a)) translateX(46px) scale(1);opacity:0}12%{opacity:.8}100%{transform:rotate(var(--a)) translateX(var(--d)) scale(.2);opacity:0}}
+  .node{animation:pulse 3s infinite} .node.b{animation-delay:1s} .node.c{animation-delay:2s}
+  .orbit{transform-origin:300px 300px}
+  .o1{animation:spin 9s linear infinite} .o2{animation:spin 13s linear infinite reverse} .o3{animation:spin 21s linear infinite}
+  .hud{position:absolute; font-family:"JetBrains Mono",monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--fg-soft); background:var(--void); border:1px solid var(--alu-hi); padding:.45rem .7rem; opacity:0; animation:fadein .6s ease forwards; white-space:nowrap; z-index:2}
+  .hud b{color:var(--amber); font-weight:500}
+  .hud.a{top:6%; left:0; animation-delay:2.6s} .hud.b{top:44%; right:-4%; animation-delay:2.9s} .hud.c{bottom:8%; left:8%; animation-delay:3.2s}
+  @media (max-width:640px){ .hud.b{right:0} }
+
+  /* Sections */
+  section{padding:104px 0; position:relative}
+  @media (max-width:640px){ section{padding:68px 0} }
+  .sec-head{margin-bottom:3.2rem; max-width:64ch}
+  .sec-head p{margin-top:1.1rem; font-size:1.1rem; color:var(--fg-soft)}
+  .idx{display:flex; align-items:center; gap:1rem; color:var(--amber); margin-bottom:1.2rem}
+  .idx::after{content:""; height:1px; width:64px; background:var(--amber); box-shadow:0 0 8px var(--amber)}
+
+  .reveal{clip-path:inset(0 100% 0 0); transition:clip-path .9s cubic-bezier(.7,0,.2,1); position:relative}
+  .reveal.in{clip-path:inset(0 0 0 0)}
+  .reveal::after{content:""; position:absolute; top:0; bottom:0; right:0; width:2px; background:var(--amber); box-shadow:0 0 18px 4px var(--amber-glow); opacity:0}
+  .reveal.in::after{animation:scanedge .9s cubic-bezier(.7,0,.2,1)}
+  @keyframes scanedge{0%{opacity:1;right:100%}90%{opacity:1}100%{opacity:0;right:0}}
+  .rise{opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rise.in{opacity:1; transform:none}
+
+  /* Telemetry ticker */
+  .ticker{border-top:1px solid var(--alu-hi); border-bottom:1px solid var(--alu-hi); padding:.85rem 0; overflow:hidden; background:linear-gradient(180deg,#0F1728,#0B1220); box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+  .ticker .track{display:flex; gap:3rem; width:max-content; animation:scroll 44s linear infinite; white-space:nowrap}
+  .ticker span{color:var(--fg-soft)} .ticker b{color:var(--amber); font-weight:500} .ticker i{font-style:normal; color:var(--alu-edge); margin-left:3rem}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* Avionics modules */
+  .modules{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+  @media (max-width:900px){ .modules{grid-template-columns:1fr} }
+  .module{padding:2.2rem 2rem 2.4rem; position:relative; overflow:hidden; --mx:50%; --my:50%; border:1px solid var(--alu-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 40px -30px rgba(0,0,0,.9)}
+  .module::after{content:""; position:absolute; inset:0; background:radial-gradient(400px circle at var(--mx) var(--my),rgba(242,169,59,.13),transparent 45%); opacity:0; transition:opacity .3s; pointer-events:none}
+  .module:hover::after{opacity:1}
+  .module .led{position:absolute; top:14px; right:14px; width:8px; height:8px; border-radius:50%; background:var(--alu); box-shadow:inset 0 1px 2px rgba(0,0,0,.6); transition:background .3s, box-shadow .3s}
+  .module:hover .led{background:var(--amber); box-shadow:0 0 12px var(--amber)}
+  .module .ports{display:flex; gap:6px; margin-bottom:1.5rem}
+  .module .ports i{width:22px; height:10px; border:1px solid var(--alu-edge); background:var(--void); border-radius:2px}
+  .module .code{color:var(--amber); margin-bottom:1.2rem; display:flex; justify-content:space-between}
+  .module .code span:last-child{color:var(--fg-dim)}
+  .module h3{font-size:1.6rem; text-transform:uppercase; margin-bottom:.5rem}
+  .module .tag{color:var(--fg-soft); font-size:.95rem; display:block; margin-bottom:1.2rem}
+  .module p{color:var(--fg-soft); font-size:.97rem}
+  .module ul{margin:1.4rem 0 0; padding:1.2rem 0 0; border-top:1px solid var(--alu); list-style:none; display:grid; gap:.5rem; font-size:.93rem}
+  .module li{padding-left:1.2rem; position:relative}
+  .module li::before{content:""; position:absolute; left:0; top:.6em; width:7px; height:7px; background:var(--amber); clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+
+  /* Propellant line timeline */
+  .timeline{position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:2.5rem 2rem; padding-top:3.4rem}
+  .timeline .pipe{position:absolute; top:0; left:0; right:0; height:10px; border:1px solid var(--alu-edge); border-radius:6px; background:linear-gradient(180deg,#26324A,#121B2C 60%,#1C2740); box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+  .timeline .pipe i{position:absolute; inset:2px; border-radius:4px; background:repeating-linear-gradient(90deg, var(--amber) 0 14px, transparent 14px 28px); opacity:0; background-size:28px 100%; width:0; transition:width 1.8s cubic-bezier(.7,0,.2,1), opacity .4s}
+  .timeline.in .pipe i{width:calc(100% - 4px); opacity:.9; animation:flowbg 1s linear infinite}
+  @keyframes flowbg{to{background-position:28px 0}}
+  @media (max-width:900px){ .timeline{grid-template-columns:1fr 1fr} } @media (max-width:560px){ .timeline{grid-template-columns:1fr} }
+  .step{position:relative}
+  .valve{position:absolute; top:calc(-3.4rem - 6px); left:0; width:22px; height:22px; border-radius:50%; background:var(--hull-2); border:2px solid var(--alu-edge); box-shadow:inset 0 1px 0 rgba(255,255,255,.15); transition:border-color .4s, box-shadow .4s}
+  .valve::after{content:""; position:absolute; inset:5px; border-radius:50%; background:var(--alu); transition:background .4s}
+  .timeline.in .valve{border-color:var(--amber); box-shadow:0 0 14px var(--amber-glow)} .timeline.in .valve::after{background:var(--amber)}
+  .timeline.in .step:nth-child(3) .valve{transition-delay:.45s} .timeline.in .step:nth-child(4) .valve{transition-delay:.9s} .timeline.in .step:nth-child(5) .valve{transition-delay:1.35s}
+  .step .when{color:var(--amber); display:block; margin-bottom:.8rem}
+  .step h3{text-transform:uppercase; font-size:1.15rem; margin-bottom:.6rem}
+  .step p{font-size:.95rem; color:var(--fg-soft)}
+
+  /* Engine bay: Lab */
+  .lab .cols{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start}
+  @media (max-width:960px){ .lab .cols{grid-template-columns:1fr; gap:40px} }
+  .lab h3{font-size:1.85rem; text-transform:uppercase; margin:.8rem 0 1rem}
+  .lab p{color:var(--fg-soft); max-width:56ch}
+  .caps{margin:1.8rem 0 0; padding:0; list-style:none; display:grid; gap:1rem}
+  .caps li{padding-left:1.2rem; position:relative}
+  .caps li::before{content:""; position:absolute; left:0; top:.6em; width:7px; height:7px; background:var(--amber); clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+  .caps small{display:block; color:var(--fg-soft); font-size:.92rem}
+  .console{border:1px solid var(--alu-edge); background:var(--void); position:relative; box-shadow:0 40px 80px -40px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.08), 0 0 60px -20px var(--amber-glow)}
+  .console-head{display:flex; justify-content:space-between; align-items:center; padding:.9rem 1.2rem; border-bottom:1px solid var(--alu); background:linear-gradient(180deg,#141F33,#0E1626)}
+  .console-head .live{color:var(--amber); display:inline-flex; align-items:center; gap:.5rem} .console-head .live i{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:pulse 1.6s infinite}
+  .gauges{display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--alu)}
+  .gauge{padding:1rem .8rem .9rem; border-right:1px solid var(--alu); text-align:center}
+  .gauge:last-child{border-right:0}
+  .gauge svg{width:92px; height:60px; display:block; margin:0 auto}
+  .gauge .needle{transform-origin:50px 50px; transform:rotate(var(--deg,-90deg)); transition:transform 1.6s cubic-bezier(.3,1.4,.4,1)}
+  .gauge b{display:block; font-family:"Chakra Petch",sans-serif; font-size:1.6rem; font-weight:700; line-height:1; margin-top:-.2rem}
+  .gauge span{color:var(--fg-soft); display:block; margin-top:.3rem}
+  .console ul{list-style:none; margin:0; padding:0}
+  .console li{padding:.9rem 1.2rem; border-bottom:1px solid var(--alu); font-size:.93rem; display:grid; grid-template-columns:1fr auto; gap:.3rem 1rem; transition:background .2s}
+  .console li:hover{background:rgba(242,169,59,.05)} .console li:last-child{border-bottom:0}
+  .console .t{font-weight:500} .console .d{color:var(--fg-soft); grid-column:1/-1; font-size:.86rem}
+  .console .pill{font-family:"JetBrains Mono",monospace; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; padding:.2rem .55rem; border:1px solid var(--alu-hi); color:var(--fg-soft); white-space:nowrap; align-self:start}
+  .console .pill.ok{border-color:var(--amber); color:var(--amber); box-shadow:0 0 12px -2px var(--amber-glow)}
+  .scanline{position:absolute; left:0; right:0; height:40%; top:-40%; background:linear-gradient(180deg,transparent,rgba(242,169,59,.06),transparent); pointer-events:none; animation:scan 6s linear infinite}
+  @keyframes scan{to{top:100%}}
+  .lab-cta{margin-top:2rem}
+  .lab-partners{margin-top:4rem; padding-top:2.4rem; border-top:1px solid var(--alu); display:grid; grid-template-columns:1fr 1fr; gap:2.5rem}
+  @media (max-width:820px){ .lab-partners{grid-template-columns:1fr} }
+  .lab-partners h3{font-size:1.15rem; text-transform:uppercase; margin-bottom:.5rem} .lab-partners p{font-size:.97rem}
+
+  /* Structural principles: ribs */
+  .principles{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  @media (max-width:820px){ .principles{grid-template-columns:1fr} }
+  .principle{padding:2.2rem 2rem 2.2rem 2.6rem; position:relative; border:1px solid var(--alu-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  .principle::before{content:""; position:absolute; left:0; top:0; bottom:0; width:10px; background:repeating-linear-gradient(180deg, var(--alu-hi) 0 2px, transparent 2px 10px); opacity:.8}
+  .principle .k{color:var(--amber); margin-bottom:1rem; display:block}
+  .principle h3{text-transform:uppercase; font-size:1.2rem; margin-bottom:.6rem}
+  .principle p{color:var(--fg-soft); max-width:46ch; font-size:.97rem}
+  blockquote{margin:4rem 0 0; padding:2.4rem 0 0 2rem; border-left:2px solid var(--amber); font-family:"Chakra Petch",sans-serif; font-size:clamp(1.3rem,2.4vw,1.9rem); font-weight:500; line-height:1.3; max-width:36ch; position:relative}
+  blockquote::before{content:""; position:absolute; left:-2px; top:0; height:2.4rem; width:2px; background:var(--amber); box-shadow:0 0 14px var(--amber)}
+  blockquote footer{font-family:"IBM Plex Sans",sans-serif; font-size:.95rem; color:var(--fg-soft); margin-top:1rem; font-weight:400}
+
+  /* Contact: ignition */
+  .contact .cols{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start}
+  @media (max-width:900px){ .contact .cols{grid-template-columns:1fr; gap:40px} }
+  .ignite{margin-top:2.2rem; display:inline-block; perspective:900px; position:relative}
+  .ignite .well{border:1px solid var(--alu-edge); padding:1.1rem; background:var(--void); box-shadow:inset 0 0 30px rgba(0,0,0,.8); position:relative}
+  .ignite .cover{position:absolute; inset:-1px; border:1px solid var(--alu-edge); transform-origin:top; transform:rotateX(0deg); transition:transform .55s cubic-bezier(.6,0,.2,1); backface-visibility:hidden; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 30px -10px rgba(0,0,0,.9); cursor:pointer}
+  .ignite .cover span{background:var(--void); border:1px solid var(--amber); color:var(--amber); padding:.35rem .8rem}
+  .ignite:hover .cover, .ignite:focus-within .cover, .ignite.open .cover{transform:rotateX(-112deg)}
+  .ignite .hint{display:block; margin-top:.7rem; color:var(--fg-dim)}
+  .paths{display:grid; gap:14px}
+  .path{padding:1.5rem 1.6rem 1.5rem 2.2rem; text-decoration:none; display:grid; grid-template-columns:1fr auto; gap:.4rem 1rem; align-items:center; position:relative; --mx:50%; --my:50%; overflow:hidden; border:1px solid var(--alu-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  .path::before{content:""; position:absolute; left:0; top:0; bottom:0; width:8px; background:repeating-linear-gradient(135deg, var(--amber) 0 8px, #14110A 8px 16px); opacity:.55; transition:opacity .3s}
+  .path:hover::before{opacity:1}
+  .path::after{content:""; position:absolute; inset:0; background:radial-gradient(360px circle at var(--mx) var(--my),rgba(242,169,59,.13),transparent 45%); opacity:0; transition:opacity .3s; pointer-events:none}
+  .path:hover::after{opacity:1}
+  .path h3{font-size:1.1rem; text-transform:uppercase}
+  .path p{grid-column:1; font-size:.93rem; color:var(--fg-soft)}
+  .path .go{grid-row:1/span 2; font-family:"Chakra Petch",sans-serif; color:var(--amber); font-size:1.6rem; transition:transform .25s}
+  .path:hover .go{transform:translateX(6px)}
+  .contact .email{margin-top:1.8rem; font-size:.95rem; color:var(--fg-soft)} .contact .email a{color:var(--fg)}
+
+  footer.site{border-top:1px solid var(--alu-hi); padding:56px 0 40px; color:var(--fg-soft); font-size:.92rem; background:linear-gradient(180deg,#0B1220,#080C13)}
+  footer .row{display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; align-items:flex-start}
+  footer .brand{color:var(--fg); margin-bottom:.7rem}
+  footer nav{display:flex; gap:1.6rem; flex-wrap:wrap} footer nav a{text-decoration:none; color:var(--fg-soft)} footer nav a:hover{color:var(--fg)}
+  footer .fine{margin-top:2.6rem; padding-top:1.4rem; border-top:1px solid var(--alu); display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001s !important; animation-delay:0s !important; transition-duration:.001s !important}
+    .reveal{clip-path:none} .rise{opacity:1;transform:none} .hero h1,.hero .lede,.hero .actions,.hero .strip,.hud,.checklist div{opacity:1;transform:none}
+    .hero h1 .line span{transform:none} .timeline .pipe i{width:calc(100% - 4px);opacity:.9} .core{transform:none;opacity:1} .nebula{opacity:1} .shock,.burst,.spark{display:none} html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div class="hull-bg" aria-hidden="true"></div>
+
+<div class="rail" aria-hidden="true">
+  <svg viewBox="0 0 34 240">
+    <path d="M17 4 L27 40 L27 190 L33 214 L1 214 L7 190 L7 40 Z" fill="none" stroke="#4A5A73" stroke-width="1"/>
+    <line x1="7" y1="60" x2="27" y2="60" stroke="#2A3547"/><line x1="7" y1="110" x2="27" y2="110" stroke="#2A3547"/><line x1="7" y1="150" x2="27" y2="150" stroke="#2A3547"/><line x1="7" y1="190" x2="27" y2="190" stroke="#2A3547"/>
+    <g class="mk" id="railmk"><circle cx="17" cy="20" r="4" fill="#F2A93B"/><circle cx="17" cy="20" r="8" fill="none" stroke="#F2A93B" opacity=".4"/></g>
+    <text class="lbl" x="17" y="236" text-anchor="middle">STA</text>
+  </svg>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top" aria-label="Novaric Labs home"><span class="mark" aria-hidden="true"></span>Novaric Labs</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#what">Capabilities</a><a href="#how">Deployment</a><a href="#lab">The Lab</a><a href="#why">Principles</a>
+    </nav>
+    <span class="tele mono"><span><i aria-hidden="true"></i>Sys <b>nominal</b></span><span>T-minus <b>Q4 2026</b></span></span>
+    <a class="btn btn-amber" href="#contact">Start an engagement</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top">
+  <div class="wrap cols">
+    <div>
+      <div class="checklist mono" aria-hidden="true">
+        <div><span class="ok">[ok]</span><span>engineer embedded with ops team</span></div>
+        <div><span class="ok">[ok]</span><span>connected to existing stack, read-only</span></div>
+        <div><span class="ok">[ok]</span><span>approval gate armed</span></div>
+        <div><span class="ok">[go]</span><span>ignition, shipping to production</span></div>
+      </div>
+      <h1>
+        <span class="line"><span>Forward-deployed</span></span>
+        <span class="line"><span>engineers for AI</span></span>
+        <span class="line"><span>that <em>ships.</em></span></span>
+      </h1>
+      <p class="lede">Novaric Labs embeds senior engineers with your team. We learn the workflow, build inside the stack you already run, and leave you with systems your people operate — not a deck and a demo.</p>
+      <div class="actions">
+        <a class="btn btn-amber" href="#contact">Start an engagement</a>
+        <a class="btn" href="#what">See the capabilities</a>
+      </div>
+      <div class="strip brushed">
+        <div><b>AI Enablement</b><span>Your team learns to build with it</span></div>
+        <div><b>Automation</b><span>Agents that take real action</span></div>
+        <div><b>Incubator Lab</b><span>New products from the field</span></div>
+      </div>
+    </div>
+
+    <div class="mech" id="mech" aria-hidden="true">
+      <div class="stars"></div>
+      <div class="nebula"></div>
+      <svg viewBox="0 0 600 600" fill="none" stroke-linecap="round">
+        <defs>
+          <radialGradient id="core" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFE3A8"/><stop offset=".3" stop-color="#F2A93B"/><stop offset=".7" stop-color="#F2A93B" stop-opacity=".25"/><stop offset="1" stop-color="#F2A93B" stop-opacity="0"/></radialGradient>
+          <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFC86A" stop-opacity=".45"/><stop offset=".4" stop-color="#F2A93B" stop-opacity=".12"/><stop offset="1" stop-color="#F2A93B" stop-opacity="0"/></radialGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="glow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- shockwaves -->
+        <circle class="shock s1" cx="300" cy="300" r="60" stroke="#F2A93B" stroke-width="1.5"/>
+        <circle class="shock s2" cx="300" cy="300" r="60" stroke="#F2A93B" stroke-width="1.2"/>
+        <circle class="shock s3" cx="300" cy="300" r="60" stroke="#F2A93B" stroke-width="1"/>
+        <circle class="burst" cx="300" cy="300" r="60" stroke="#FFC86A" stroke-width="2" filter="url(#glow)"/>
+
+        <!-- crosshair + frame -->
+        <g stroke="#22314A" stroke-width="1">
+          <line x1="300" y1="-20" x2="300" y2="620"/><line x1="-20" y1="300" x2="620" y2="300"/>
+          <rect x="220" y="220" width="160" height="160" stroke="#33476A" transform="rotate(45 300 300)"/>
+        </g>
+
+        <!-- outer tick ring -->
+        <g class="ring r4" stroke="#22314A"><circle cx="300" cy="300" r="284" stroke-width="1"/><g id="ticks"></g></g>
+
+        <!-- dashed ring with energy sweep -->
+        <g class="ring r1" stroke="#33476A" stroke-width="1.5">
+          <circle cx="300" cy="300" r="240" stroke-dasharray="4 10"/>
+          <circle class="arc" cx="300" cy="300" r="240" stroke="#F2A93B" stroke-width="2.5" stroke-dasharray="140 1368" opacity=".85"/>
+        </g>
+
+        <!-- segmented ring -->
+        <g class="ring r2" stroke="#33476A" stroke-width="10">
+          <circle cx="300" cy="300" r="196" stroke-dasharray="60 24" opacity=".7"/>
+          <circle class="arc" cx="300" cy="300" r="196" stroke="#F2A93B" stroke-width="10" stroke-dasharray="90 1141"/>
+        </g>
+
+        <!-- inner fast ring -->
+        <g class="ring r3" stroke="#F2A93B">
+          <circle cx="300" cy="300" r="140" stroke-width="1" opacity=".5"/>
+          <circle class="arc" cx="300" cy="300" r="140" stroke-width="3" stroke-dasharray="40 840"/>
+        </g>
+
+        <!-- orbiting nodes with trails -->
+        <g class="orbit o1"><path d="M300 190 A110 110 0 0 0 209 245" stroke="#F2A93B" stroke-width="2" opacity=".5" filter="url(#glow)"/><circle class="node" cx="300" cy="190" r="5" fill="#FFC86A" filter="url(#glow)"/></g>
+        <g class="orbit o2"><path d="M300 470 A170 170 0 0 0 424 415" stroke="#F2A93B" stroke-width="2" opacity=".4" filter="url(#glow)"/><circle class="node b" cx="300" cy="470" r="4.5" fill="#FFC86A" filter="url(#glow)"/></g>
+        <g class="orbit o3"><path d="M78 300 A222 222 0 0 0 170 480" stroke="#FF6A2A" stroke-width="1.5" opacity=".35" filter="url(#glow)"/><circle class="node c" cx="78" cy="300" r="4" fill="#FFC86A" filter="url(#glow)"/></g>
+
+        <!-- sparks -->
+        <g id="sparks" fill="#F2A93B" opacity=".7"></g>
+
+        <!-- corona rays -->
+        <g class="rays" stroke="#F2A93B" stroke-width="1">
+          <line x1="300" y1="300" x2="300" y2="150"/><line x1="300" y1="300" x2="405" y2="195"/><line x1="300" y1="300" x2="450" y2="300"/><line x1="300" y1="300" x2="405" y2="405"/>
+          <line x1="300" y1="300" x2="300" y2="450"/><line x1="300" y1="300" x2="195" y2="405"/><line x1="300" y1="300" x2="150" y2="300"/><line x1="300" y1="300" x2="195" y2="195"/>
+          
+        </g>
+
+        <!-- core -->
+        <g class="core">
+          <circle cx="300" cy="300" r="100" fill="url(#halo)"/>
+          <circle cx="300" cy="300" r="64" fill="url(#core)" filter="url(#glow2)"/>
+          <circle cx="300" cy="300" r="30" fill="#F2A93B"/>
+          <circle cx="300" cy="300" r="38" fill="none" stroke="#FFC86A" stroke-width="1.5" opacity=".6"/>
+        </g>
+      </svg>
+      <div class="hud a">Origin <b>ignited</b></div>
+      <div class="hud b">Engineer <b>on-site</b></div>
+      <div class="hud c">Expansion <b>accelerating</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker mono" aria-hidden="true">
+  <div class="track" id="track">
+    <span>Engineer <b>on-site</b><i>/</i></span><span>Approval gate <b>armed</b><i>/</i></span><span>Integration <b>read-only</b><i>/</i></span><span>Evals <b>passing</b><i>/</i></span><span>Kill switch <b>installed</b><i>/</i></span><span>Handoff <b>scheduled</b><i>/</i></span><span>Incubator lab <b>active</b><i>/</i></span><span>Charlotte, NC <b>base</b><i>/</i></span>
+  </div>
+</div>
+
+<div class="bulkhead"><span class="sta mono">STA <b>120</b> &nbsp;Avionics bay</span></div>
+
+<section id="what">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="idx mono reveal">01 / Capabilities</div>
+      <h2 class="reveal">Three systems. Deploy in any order.</h2>
+      <p class="rise">Most clients start with one and end up using two. Enablement builds the capability, Automation puts it to work, and the Lab turns what we learn in the field into products.</p>
+    </div>
+    <div class="modules">
+      <div class="module brushed rivets rise"><i class="rv tr"></i><i class="rv bl"></i><i class="led"></i>
+        <div class="ports"><i></i><i></i><i></i></div>
+        <div class="code mono"><span>SYS-01</span><span>Enablement</span></div>
+        <h3>AI Enablement</h3><span class="tag">For teams who want to build, not outsource</span>
+        <p>We stand up the foundation your team needs to use AI safely, then teach them to build on it themselves. Model access, guardrails, evaluation, and the working habits that separate a pilot from a practice.</p>
+        <ul><li>AI workflow audit with a ranked build list</li><li>Model access, policy, and cost controls</li><li>Evaluation harnesses for your use cases</li><li>Hands-on training for engineers and operators</li><li>Internal tooling and prompt libraries</li><li>Vendor and platform selection</li></ul>
+      </div>
+      <div class="module brushed rivets rise"><i class="rv tr"></i><i class="rv bl"></i><i class="led"></i>
+        <div class="ports"><i></i><i></i><i></i></div>
+        <div class="code mono"><span>SYS-02</span><span>Automation</span></div>
+        <h3>Automation</h3><span class="tag">For operations that run on queues, inboxes, and documents</span>
+        <p>We design agents that do the work — routing, drafting, reconciling, escalating — inside your CRM, ticketing, email, and data. Every high-stakes action runs through an approval gate you control, and we stay until it runs without us.</p>
+        <ul><li>Multi-step agents with human approval gates</li><li>Integration with the systems you already run</li><li>Document intake, extraction, exception handling</li><li>Monitoring, logs, and a kill switch on day one</li><li>Fixed-scope pilots that become managed retainers</li><li>Code handed over, not held hostage</li></ul>
+      </div>
+      <div class="module brushed rivets rise"><i class="rv tr"></i><i class="rv bl"></i><i class="led"></i>
+        <div class="ports"><i></i><i></i><i></i></div>
+        <div class="code mono"><span>SYS-03</span><span>Incubator</span></div>
+        <h3>Incubator Lab</h3><span class="tag">Where field patterns become products</span>
+        <p>The same problems show up across clients. When one is worth solving properly, we build it as a product in the Lab — funded by our services work, shaped by real operators, and open to partners who want to co-build or be first to run it.</p>
+        <ul><li>Products born from repeated client patterns</li><li>Design partners get early access and a say in the roadmap</li><li>First product: an agentic harness for property management</li><li>Co-build and revenue-share for the right partner</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bulkhead"><span class="sta mono">STA <b>240</b> &nbsp;Propellant feed</span></div>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="idx mono reveal">02 / Deployment</div>
+      <h2 class="reveal">How an engagement runs.</h2>
+      <p class="rise">Forward-deployed means we work where the work happens. Short scoping, fast embed, and a handoff that leaves your team in control.</p>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="pipe"><i></i></div>
+      <div class="step"><span class="valve"></span><span class="when mono">Week 00</span><h3>Scope the workflow</h3><p>One working session on the process costing you the most. You get a written scope, a fixed price, and a straight answer on whether AI fits.</p></div>
+      <div class="step"><span class="valve"></span><span class="when mono">Weeks 01–02</span><h3>Embed with your team</h3><p>An engineer sits with the people doing the job, maps the real flow including the workarounds, and connects to your systems read-only.</p></div>
+      <div class="step"><span class="valve"></span><span class="when mono">Weeks 03–08</span><h3>Ship into production</h3><p>Agents go live behind approval gates. We tune on real volume, widen the gate as trust builds, and instrument everything.</p></div>
+      <div class="step"><span class="valve"></span><span class="when mono">Ongoing</span><h3>Hand off or retain</h3><p>Your team gets the repo, the runbook, and the training to operate it. Keep us on a managed retainer or run it yourselves.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="bulkhead"><span class="sta mono">STA <b>360</b> &nbsp;Engine bay</span></div>
+
+<section class="lab" id="lab">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="idx mono reveal">03 / From the Lab</div>
+      <h2 class="reveal">An agentic harness for property management.</h2>
+      <p class="rise">Our first product runs the repetitive back office of a property management company — the email triage, the vendor chase, the document shuffle — as coordinated agents instead of manual queues.</p>
+    </div>
+    <div class="cols">
+      <div class="rise">
+        <span class="mono" style="color:var(--amber)">Pre-launch — taking design partners</span>
+        <h3>Agents handle the routine. You approve what matters.</h3>
+        <p>Requests come in the way they always do — an email, a maintenance ticket, a tenant text. The system handles the busywork and holds anything high-stakes for your sign-off: money out, lease terms, anything that carries risk. It plugs into the tools your team already uses.</p>
+        <ul class="caps">
+          <li>Lease processing<small>Parse applications, flag exceptions, prep documents for sign-off</small></li>
+          <li>Maintenance routing<small>Triage requests, match the vendor, schedule, follow up until closed</small></li>
+          <li>Tenant communication<small>On-brand replies across email and SMS, escalated when stakes rise</small></li>
+          <li>Vendor coordination<small>Collect quotes, track work orders, reconcile invoices against approved work</small></li>
+        </ul>
+        <div class="lab-cta"><a class="btn btn-amber" href="mailto:hello@novariclabs.com?subject=Property%20management%20harness%20%E2%80%94%20design%20partner">Become a design partner</a></div>
+      </div>
+
+      <div class="console rise" id="console" aria-label="Novaric Console preview">
+        <div class="scanline" aria-hidden="true"></div>
+        <div class="console-head mono"><b>Novaric Console</b><span class="live"><i aria-hidden="true"></i>Live</span></div>
+        <div class="gauges">
+          <div class="gauge">
+            <svg viewBox="0 0 100 56" aria-hidden="true"><path d="M8 50 A42 42 0 0 1 92 50" stroke="#2A3547" stroke-width="6" fill="none"/><path d="M8 50 A42 42 0 0 1 92 50" stroke="#F2A93B" stroke-width="6" fill="none" stroke-dasharray="132" stroke-dashoffset="30" opacity=".5"/><line class="needle" x1="50" y1="50" x2="50" y2="14" stroke="#FFC86A" stroke-width="2.5" style="--deg:65deg"/><circle cx="50" cy="50" r="4" fill="#F2A93B"/></svg>
+            <b class="count" data-to="47">0</b><span class="mono">Handled today</span>
+          </div>
+          <div class="gauge">
+            <svg viewBox="0 0 100 56" aria-hidden="true"><path d="M8 50 A42 42 0 0 1 92 50" stroke="#2A3547" stroke-width="6" fill="none"/><line class="needle" x1="50" y1="50" x2="50" y2="14" stroke="#FFC86A" stroke-width="2.5" style="--deg:-60deg"/><circle cx="50" cy="50" r="4" fill="#F2A93B"/></svg>
+            <b class="count" data-to="3">0</b><span class="mono">Waiting on you</span>
+          </div>
+          <div class="gauge">
+            <svg viewBox="0 0 100 56" aria-hidden="true"><path d="M8 50 A42 42 0 0 1 92 50" stroke="#2A3547" stroke-width="6" fill="none"/><line class="needle" x1="50" y1="50" x2="50" y2="14" stroke="#FFC86A" stroke-width="2.5" style="--deg:40deg"/><circle cx="50" cy="50" r="4" fill="#F2A93B"/></svg>
+            <b class="count" data-to="6.2" data-suffix="h" data-dec="1">0</b><span class="mono">Time saved</span>
+          </div>
+        </div>
+        <ul>
+          <li><span class="t">Leak reported, Unit 4B</span><span class="pill">Scheduled</span><span class="d">Routed to ProTech Plumbing, scheduled Thu 9:00 AM</span></li>
+          <li><span class="t">Tenant question about rent, Unit 12C</span><span class="pill">Handled</span><span class="d">Drafted and sent a reply with their balance</span></li>
+          <li><span class="t">Lease renewal ready, Unit 7A</span><span class="pill ok">Needs your OK</span><span class="d">Drafted with current terms, waiting for your sign-off</span></li>
+          <li><span class="t">Vendor invoice matched, ProTech</span><span class="pill">Handled</span><span class="d">Checked against work order #1182, cleared to pay</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="lab-partners rise">
+      <div><h3>Have a product the Lab should build?</h3><p>If you run an operations-heavy business and keep hitting the same wall, we want to hear about it. The best Lab products start as a client problem nobody has solved well.</p></div>
+      <div><h3>Next in the pipeline</h3><p>The property management pattern — high volume, rules-driven, document-heavy — repeats in financial services back office, healthcare admin, legal, and logistics. That's where we're looking next.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="bulkhead"><span class="sta mono">STA <b>480</b> &nbsp;Primary structure</span></div>
+
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="idx mono reveal">04 / Principles</div>
+      <h2 class="reveal">Operators who happen to build AI.</h2>
+      <p class="rise">Plenty of teams can call an API. Fewer understand what it takes to run automation inside a business that can't afford to break. That's the gap we work in.</p>
+    </div>
+    <div class="principles">
+      <div class="principle brushed rise"><span class="k mono">Load path 01</span><h3>Production, not demos</h3><p>We ship systems that survive real volume, edge cases, and the messiness of live operations. A slick prototype isn't the goal.</p></div>
+      <div class="principle brushed rise"><span class="k mono">Load path 02</span><h3>Human-in-the-loop by default</h3><p>Agents handle the volume; people keep the decisions that carry risk. Approval gates are designed in from the start, not bolted on.</p></div>
+      <div class="principle brushed rise"><span class="k mono">Load path 03</span><h3>We integrate, we don't replace</h3><p>Your team keeps the tools they know. We connect AI into the systems you already run instead of forcing a migration nobody asked for.</p></div>
+      <div class="principle brushed rise"><span class="k mono">Load path 04</span><h3>You own what we build</h3><p>The code, the prompts, the evals, the runbook. Forward-deployed means we leave your team able to run it without us.</p></div>
+    </div>
+    <blockquote class="rise">“The hard part was never the model. It was making automation that operations teams actually trust enough to run every day.”<footer>The principle behind everything we ship</footer></blockquote>
+  </div>
+</section>
+
+<div class="bulkhead"><span class="sta mono">STA <b>600</b> &nbsp;Ignition</span></div>
+
+<section class="contact" id="contact">
+  <div class="wrap cols">
+    <div>
+      <div class="idx mono reveal">05 / Ignition</div>
+      <h2 class="reveal">Tell us about the workflow that's costing you the most.</h2>
+      <p class="rise soft" style="margin-top:1.1rem; font-size:1.1rem; max-width:52ch">We'll come back with a straight answer on whether — and how — AI fits, and a fixed-price scope if it does. Founding engagements in Q4 2026 get priority on our engineers' calendars.</p>
+      <div class="ignite rise" id="ignite">
+        <div class="well">
+          <a class="btn btn-amber" href="mailto:hello@novariclabs.com?subject=Start%20an%20engagement">Start an engagement</a>
+          <div class="cover hazard" id="cover"><span class="mono">Lift to arm</span></div>
+        </div>
+        <span class="hint mono">Guarded switch. Hover or tap to arm.</span>
+      </div>
+      <p class="email rise">Prefer email? <a href="mailto:hello@novariclabs.com">hello@novariclabs.com</a></p>
+    </div>
+    <div class="paths rise">
+      <a class="path brushed" href="mailto:hello@novariclabs.com?subject=AI%20Enablement%20engagement"><h3>Enable my team</h3><span class="go" aria-hidden="true">»</span><p>Audit, foundation, and training so your engineers build with AI themselves.</p></a>
+      <a class="path brushed" href="mailto:hello@novariclabs.com?subject=Automation%20engagement"><h3>Automate a workflow</h3><span class="go" aria-hidden="true">»</span><p>A forward-deployed engineer embeds and ships agents into your stack.</p></a>
+      <a class="path brushed" href="mailto:hello@novariclabs.com?subject=Incubator%20Lab%20%E2%80%94%20partner"><h3>Partner with the Lab</h3><span class="go" aria-hidden="true">»</span><p>Be a design partner on a product, or bring us a problem worth building for.</p></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div><div class="brand"><span class="mark" aria-hidden="true"></span>Novaric Labs</div><p style="max-width:40ch">Forward-deployed engineering for AI enablement, automation, and new products. Charlotte, North Carolina.</p></div>
+      <nav aria-label="Footer"><a href="#what">Capabilities</a><a href="#how">Deployment</a><a href="#lab">The Lab</a><a href="#why">Principles</a><a href="#contact">Contact</a></nav>
+    </div>
+    <div class="fine mono"><span>© 2026 Novaric Labs</span><span>Built in Charlotte. Designed to run in production.</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ticks = document.getElementById('ticks');
+  if (ticks) { var t=''; for (var i=0;i<72;i++){ var major=i%6===0; t+='<line x1="300" y1="16" x2="300" y2="'+(16+(major?14:6))+'" stroke="'+(major?'#F2A93B':'#33476A')+'" stroke-width="'+(major?2:1)+'" transform="rotate('+(i*5)+' 300 300)"/>'; } ticks.innerHTML=t; }
+  var sp = document.getElementById('sparks');
+  if (sp) { var h=''; for (var j=0;j<28;j++){ var ang=Math.random()*360, d=140+Math.random()*200, dur=(1.8+Math.random()*2.4).toFixed(2), del=(2+Math.random()*4).toFixed(2), r=(1+Math.random()*2).toFixed(1);
+      h+='<circle class="spark" cx="300" cy="300" r="'+r+'" style="--a:'+ang.toFixed(1)+'deg;--d:'+d.toFixed(0)+'px;--dur:'+dur+'s;--delay:'+del+'s"/>'; } sp.innerHTML=h; }
+  var track = document.getElementById('track'); if (track) track.innerHTML += track.innerHTML;
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      if (e.target.id === 'console') e.target.querySelectorAll('.count').forEach(count);
+      io.unobserve(e.target);
+    });
+  }, {threshold: .18});
+  document.querySelectorAll('.reveal,.rise,.timeline,#console').forEach(function(el){ io.observe(el); });
+  // gauge needles start at -90 then swing to target once console is in view
+  document.querySelectorAll('.gauge .needle').forEach(function(n){ n.dataset.target = n.style.getPropertyValue('--deg'); n.style.setProperty('--deg','-90deg'); });
+  var cio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; e.target.querySelectorAll('.needle').forEach(function(n){ n.style.setProperty('--deg', n.dataset.target); }); cio.unobserve(e.target); }); }, {threshold:.3});
+  var con = document.getElementById('console'); if (con) cio.observe(con);
+
+  function count(el){
+    var to = parseFloat(el.dataset.to), dec = parseInt(el.dataset.dec||'0',10), suf = el.dataset.suffix||'';
+    if (reduce) { el.textContent = to.toFixed(dec)+suf; return; }
+    var t0 = null;
+    function f(t){ if(!t0) t0=t; var p=Math.min(1,(t-t0)/1400); p=1-Math.pow(1-p,3); el.textContent=(to*p).toFixed(dec)+suf; if(p<1) requestAnimationFrame(f); }
+    requestAnimationFrame(f);
+  }
+
+  document.querySelectorAll('.module,.path').forEach(function(el){
+    el.addEventListener('pointermove', function(ev){ var r = el.getBoundingClientRect(); el.style.setProperty('--mx',(ev.clientX-r.left)+'px'); el.style.setProperty('--my',(ev.clientY-r.top)+'px'); });
+  });
+
+  // guarded ignition switch (tap to arm on touch)
+  var ig = document.getElementById('ignite'), cover = document.getElementById('cover');
+  if (cover) cover.addEventListener('click', function(e){ e.preventDefault(); ig.classList.toggle('open'); });
+
+  // scroll rail marker
+  var mk = document.getElementById('railmk');
+  function rail(){ if(!mk) return; var h = document.documentElement; var p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1); mk.style.transform = 'translateY(' + (p*180) + 'px)'; }
+  window.addEventListener('scroll', rail, {passive:true}); rail();
+
+  // engine parallax
+  if (!reduce && window.matchMedia('(hover: hover)').matches) {
+    var eng = document.getElementById('mech'), mx=0,my=0,cx=0,cy=0;
+    window.addEventListener('pointermove', function(e){ mx=(e.clientX/window.innerWidth-.5)*14; my=(e.clientY/window.innerHeight-.5)*14; }, {passive:true});
+    (function loop(){ cx+=(mx-cx)*.06; cy+=(my-cy)*.06; if(eng) eng.style.transform='translate('+cx+'px,'+cy+'px)'; requestAnimationFrame(loop); })();
+  }
+})();
+</script>
+</body>
+</html>
