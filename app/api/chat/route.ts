@@ -1,4 +1,4 @@
-import { anthropic, MODEL, hasApiKey, NOVARIC_CONTEXT } from "@/lib/anthropic";
+import { anthropic, MODEL, EFFORT, hasApiKey, NOVARIC_CONTEXT } from "@/lib/anthropic";
 import { checkRateLimit } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
@@ -8,7 +8,7 @@ type ChatMessage = { role: "user" | "assistant"; content: string };
 
 const SYSTEM_PROMPT = `You are the Novaric Labs assistant — a knowledgeable, professional guide on the Novaric Labs website.
 
-Your job is to answer visitor questions about Novaric Labs' services, the property management platform, how to get started, and general AI consulting topics.
+Your job is to answer visitor questions about Novaric Labs' three systems, how an engagement runs, the Incubator Lab, and general applied-AI topics.
 
 ${NOVARIC_CONTEXT}
 
@@ -61,7 +61,10 @@ export async function POST(req: Request) {
       try {
         const messageStream = anthropic.messages.stream({
           model: MODEL,
-          max_tokens: 1024,
+          // Headroom for thinking tokens, which count against max_tokens.
+          // Answers themselves are 2-4 sentences.
+          max_tokens: 2048,
+          output_config: { effort: EFFORT },
           system: SYSTEM_PROMPT,
           messages: trimmed,
         });
