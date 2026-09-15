@@ -1267,24 +1267,14 @@ section {
 .gauge:last-child {
   border-right: 0;
 }
-.gauge svg {
-  width: 92px;
-  height: 60px;
-  display: block;
-  margin: 0 auto;
-}
-.gauge .needle {
-  transform-origin: 50px 50px;
-  transform: rotate(var(--deg, -90deg));
-  transition: transform 1.6s cubic-bezier(0.3, 1.4, 0.4, 1);
-}
 .gauge b {
   display: block;
   font-family: var(--font-chakra), "Chakra Petch", sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 1;
-  margin-top: -0.2rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .gauge span {
   color: var(--fg-soft);
@@ -1335,6 +1325,24 @@ section {
   color: var(--amber);
   box-shadow: 0 0 12px -2px var(--amber-glow);
 }
+/* The pipeline stages light in order once the panel scrolls into view. */
+.console .stage .pill {
+  transition: border-color 0.45s, color 0.45s, box-shadow 0.45s;
+}
+.console.in .stage .pill {
+  border-color: var(--amber);
+  color: var(--amber);
+  box-shadow: 0 0 12px -2px var(--amber-glow);
+}
+.console.in .stage:nth-child(2) .pill {
+  transition-delay: 0.3s;
+}
+.console.in .stage:nth-child(3) .pill {
+  transition-delay: 0.6s;
+}
+.console.in .stage:nth-child(4) .pill {
+  transition-delay: 0.9s;
+}
 .scanline {
   position: absolute;
   left: 0;
@@ -1350,8 +1358,22 @@ section {
     top: 100%;
   }
 }
+.lab-first {
+  margin-top: 1.9rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--alu);
+  font-size: 0.95rem;
+}
+.lab-first .mono {
+  display: block;
+  color: var(--amber);
+  margin-bottom: 0.4rem;
+}
 .lab-cta {
-  margin-top: 2rem;
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
 }
 .lab-partners {
   margin-top: 4rem;
