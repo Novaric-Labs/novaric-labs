@@ -21,8 +21,18 @@ const STEPS: { n: string; title: string; when: string; body: string }[] = [
 
 export default function Steps() {
   return (
-    <section id="approach">
+    <section id="enablement">
       <div className="wrap">
+        <div className="grid">
+          <div className="section-head">
+            <span className="mono">01 / AI enablement</span>
+            <h2>What AI enablement means here.</h2>
+            <p>
+              Not a pilot, not a platform, not a slide deck. Three steps, about
+              eight weeks, and your team owns the result.
+            </p>
+          </div>
+        </div>
         {STEPS.map((s) => (
           <div className="grid row" key={s.n}>
             <span className="n mono">{s.n}</span>

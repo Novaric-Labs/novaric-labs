@@ -9,7 +9,7 @@ export default function Nav() {
     <header className="nav">
       <div className="wrap grid">
         <nav className="l mono" aria-label="Primary">
-          <a href="#approach">01 Approach</a>
+          <a href="#enablement">01 AI enablement</a>
           <a href="#work">02 Work</a>
         </nav>
         <a className="brand" href="#top" aria-label="Novaric Labs, back to top">

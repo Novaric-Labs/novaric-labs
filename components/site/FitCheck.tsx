@@ -130,9 +130,9 @@ export default function FitCheck() {
         </span>
         <h2>Is AI right for your workflow?</h2>
         <p>
-          Five questions, one candid read. We&apos;ll tell you to wait if you
-          should wait. Your answers go to Claude for a one-time assessment and
-          nothing is stored.
+          Five questions, one candid read on whether AI enablement fits your
+          team right now. We&apos;ll tell you to wait if you should wait. Your
+          answers go to Claude for a one-time assessment and nothing is stored.
         </p>
 
         {!started && !result && (
