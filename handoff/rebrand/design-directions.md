@@ -8,6 +8,7 @@ Files in this folder:
 | --- | --- |
 | `index.html` | Links to the five mockups |
 | `direction-a-plainspoken.html` … `direction-e-warm-editorial.html` | Five self-contained HTML mockups, each about one screen of hero plus 3–4 sections |
+| `direction-f-declarative-grid.html` | The combined C + D direction, built after the first review |
 | `directions-overview.png` | All five heroes side by side |
 | `current-site.png` | The live site's hero today, for comparison |
 
@@ -80,17 +81,44 @@ Every direction keeps the navy wordmark and the gold four-point star from the lo
 - Feels: the most approachable of the five by a distance. Reads like a magazine or a founder's letter, not a product page. Directly answers "make it less intimidating."
 - Risk: needs real photography and a real voice to work; placeholder gradients and generic copy would kill it. Serif-on-cream can tip into "boutique agency" if overdone.
 
+### F · Declarative Grid (C + D combined)
+
+**Principle:** confidence through scale, discipline through structure. Built after the first review picked C and D.
+
+Taken from C:
+- The giant stacked uppercase headline with the gold "AI."
+- JetBrains Mono micro-labels everywhere a label is needed (nav, section numbers, week markers, footer)
+- The "Built for …" role marquee under the hero
+- The full-bleed navy proof block with the mono engagement timeline
+- The big centered "Is AI right for your workflow?" fit-check section
+
+Taken from D:
+- A visible 12-column grid behind the hero, with the headline flush-left instead of centered
+- The meta column (AI enablement / Charlotte / Est.) in the first two grid columns
+- Numbered hairline rows for the three steps: number, headline, body across the grid
+- The work table and the four-figure strip instead of cards
+- Underline links for secondary actions, a dark fill button for the primary only
+- One display face (Space Grotesk) carrying everything, mono as the only second voice
+
+What was dropped: C's centered hero and its loose spacing, D's lighter-weight Archivo (it fought the stacked headline), and D's navy contact block (one dark section per page is enough).
+
+- Headline: "ACTUALLY / USE / AI." with the lede and actions sitting in the right half of the grid below it.
+- Feels: assured without being loud. The grid and the numbered rows make the bold type feel engineered rather than shouty, which is the right tone for a team selling production reliability.
+- Risk: the stacked hero is tall on desktop; on a 13-inch laptop the lede sits near the fold. Worth testing a slightly smaller headline or a two-column hero on short viewports.
+
 ## 3. Where they sit
 
-| | Softest | | | Boldest |
-| --- | --- | --- | --- | --- |
-| E · Warm Editorial | B · Soft Grid | A · Plainspoken | D · Swiss Grid | C · Declarative |
+| | Softest | | | | Boldest |
+| --- | --- | --- | --- | --- | --- |
+| E · Warm Editorial | B · Soft Grid | A · Plainspoken | D · Swiss Grid | F · Declarative Grid | C · Declarative |
 
 A, B and D are "clean minimal" in the conventional sense. E is minimal but warm. C is minimal by word count, not by volume.
 
 ## 4. Recommendation
 
-Lead with **B (Soft Grid)** or **E (Warm Editorial)**, and borrow one thing from C: the fit check should be promoted to a hero-adjacent CTA with the "no email required" line visible.
+After the first review, **F (Declarative Grid)** is the working direction. It keeps C's memorable hero and D's structural discipline, and the fit check is promoted to a hero-adjacent CTA with the "no email required" line visible.
+
+Earlier reasoning, kept for the record: B and E were the original recommendations on approachability grounds.
 
 - Choose **B** if the audience is operations leaders at mid-size companies who are already AI-curious and want to see competence. It is modern, friendly, and the structure ports cleanly into the existing Next.js components.
 - Choose **E** if the audience is skeptical, non-technical, or has been burned by an AI pilot before. The letter format and serif voice do more for "approachable" than any layout trick.
