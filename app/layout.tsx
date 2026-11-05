@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Chakra_Petch, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const chakra = Chakra_Petch({
+const grotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-chakra",
-  weight: ["500", "600", "700"],
-});
-
-const plex = IBM_Plex_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-plex",
-  weight: ["400", "500", "600"],
+  variable: "--font-grotesk",
+  weight: ["400", "500", "700"],
 });
 
 const mono = JetBrains_Mono({
@@ -25,21 +18,22 @@ const mono = JetBrains_Mono({
 
 const siteUrl = "https://novariclabs.ai";
 
+const TITLE = "Novaric Labs — AI enablement for operations teams";
 const DESCRIPTION =
-  "Novaric Labs is a forward-deployed engineering group in Charlotte, NC. We embed with your team to enable AI, automate operations, and incubate new software products — built in your stack, run in production.";
+  "Novaric Labs helps operations teams actually use AI. A senior engineer embeds with your team in Charlotte, NC or on site, builds AI into the tools you already run, and leaves your people able to keep it going.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Novaric Labs — Forward-deployed engineering for AI that ships",
+    default: TITLE,
     template: "%s · Novaric Labs",
   },
   description: DESCRIPTION,
   keywords: [
-    "forward-deployed engineering",
     "AI enablement",
-    "AI automation",
-    "agentic systems",
+    "AI adoption",
+    "operations automation",
+    "embedded engineering",
     "Charlotte NC",
     "property management automation",
     "Novaric Labs",
@@ -48,13 +42,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "Novaric Labs — Forward-deployed engineering for AI that ships",
+    title: TITLE,
     description: DESCRIPTION,
     siteName: "Novaric Labs",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Novaric Labs — Forward-deployed engineering for AI that ships",
+    title: TITLE,
     description: DESCRIPTION,
   },
 };
@@ -65,14 +59,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${chakra.variable} ${plex.variable} ${mono.variable}`}
-    >
+    <html lang="en" className={`${grotesk.variable} ${mono.variable}`}>
       <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border focus:border-amber focus:bg-void focus:px-4 focus:py-2 focus:text-sm focus:text-fg"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2 focus:text-sm focus:text-ink"
         >
           Skip to content
         </a>

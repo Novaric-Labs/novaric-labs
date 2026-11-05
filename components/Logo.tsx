@@ -3,7 +3,7 @@ import navyLogo from "@/public/novaric-logo.png";
 import whiteLogo from "@/public/novaric-logo-white.png";
 
 type LogoProps = {
-  /** Wordmark color. The site runs on a dark hull, so "white" is the norm. */
+  /** Wordmark color. The site is light, so "navy" is the norm. */
   variant?: "white" | "navy";
   /** Rendered height in pixels; width scales with the ~4:1 wordmark ratio. */
   height?: number;
@@ -13,11 +13,10 @@ type LogoProps = {
 
 /**
  * The Novaric wordmark (a four-point gold star over the i), rendered from the
- * supplied brand asset. The white recolor keeps the gold star intact on dark
- * backgrounds.
+ * supplied brand asset. The white recolor is for dark backgrounds.
  */
 export default function Logo({
-  variant = "white",
+  variant = "navy",
   height = 28,
   className,
   priority = false,

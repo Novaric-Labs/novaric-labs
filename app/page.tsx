@@ -1,47 +1,29 @@
-import Rail from "@/components/launch/Rail";
-import Nav from "@/components/launch/Nav";
-import Hero from "@/components/launch/Hero";
-import Ticker from "@/components/launch/Ticker";
-import Bulkhead from "@/components/launch/Bulkhead";
-import Capabilities from "@/components/launch/Capabilities";
-import Deployment from "@/components/launch/Deployment";
-import Lab from "@/components/launch/Lab";
-import Principles from "@/components/launch/Principles";
-import Contact from "@/components/launch/Contact";
-import Footer from "@/components/launch/Footer";
-import ScrollEffects from "@/components/launch/ScrollEffects";
+import Nav from "@/components/site/Nav";
+import Hero from "@/components/site/Hero";
+import Marquee from "@/components/site/Marquee";
+import Steps from "@/components/site/Steps";
+import Proof from "@/components/site/Proof";
+import Work from "@/components/site/Work";
+import FitCheck from "@/components/site/FitCheck";
+import Contact from "@/components/site/Contact";
+import Footer from "@/components/site/Footer";
 import ChatWidget from "@/components/ChatWidget";
 
 export default function Home() {
   return (
     <>
-      <div className="hull-bg" aria-hidden="true" />
-      <Rail />
       <Nav />
-
       <main id="main">
         <Hero />
-        <Ticker />
-
-        <Bulkhead sta="120" label="Avionics bay" />
-        <Capabilities />
-
-        <Bulkhead sta="240" label="Propellant feed" />
-        <Deployment />
-
-        <Bulkhead sta="360" label="Engine bay" />
-        <Lab />
-
-        <Bulkhead sta="480" label="Primary structure" />
-        <Principles />
-
-        <Bulkhead sta="600" label="Ignition" />
+        <Marquee />
+        <Steps />
+        <Proof />
+        <Work />
+        <FitCheck />
         <Contact />
       </main>
-
       <Footer />
       <ChatWidget />
-      <ScrollEffects />
     </>
   );
 }
