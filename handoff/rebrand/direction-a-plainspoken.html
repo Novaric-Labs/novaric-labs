@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction A — Plainspoken · Novaric Labs rebrand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1c4b; --ink-soft:#4a5570; --ink-dim:#8a92a6;
+    --paper:#ffffff; --line:#e6e8ee; --gold:#f5b94a; --gold-ink:#7a5200;
+    --max:980px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:"Inter Tight",Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-0.025em;line-height:1.05;margin:0}
+  p{margin:0}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(var(--max),calc(100% - 48px));margin:0 auto}
+  /* nav */
+  nav{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:9}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .wordmark{display:flex;align-items:center;gap:8px;font-family:"Inter Tight";font-weight:600;font-size:22px;letter-spacing:-0.02em}
+  .star{width:14px;height:14px;background:var(--gold);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+  nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--ink-soft)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-weight:500;font-size:16px;border:1px solid var(--ink);transition:.15s}
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-primary:hover{background:#13296b}
+  .btn-ghost:hover{background:#f4f5f8}
+  .btn-sm{padding:9px 16px;font-size:14px}
+  /* hero */
+  .hero{padding:120px 0 96px}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);max-width:14ch}
+  .hero h1 em{font-style:normal;position:relative;white-space:nowrap}
+  .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.12em;background:var(--gold);z-index:-1;border-radius:2px}
+  .hero .lede{font-size:clamp(1.1rem,1.6vw,1.35rem);color:var(--ink-soft);max-width:52ch;margin:28px 0 36px}
+  .actions{display:flex;gap:12px;flex-wrap:wrap}
+  .kicker{font-size:14px;font-weight:500;color:var(--gold-ink);letter-spacing:.02em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+  .kicker .star{width:10px;height:10px}
+  /* sections */
+  section{padding:88px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(1.8rem,3.4vw,2.6rem);max-width:22ch;margin-bottom:16px}
+  .sub{color:var(--ink-soft);max-width:56ch;font-size:1.05rem}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px}
+  .step .n{font-family:"Inter Tight";font-size:14px;color:var(--ink-dim);margin-bottom:14px}
+  .step h3{font-size:1.25rem;margin-bottom:10px}
+  .step p{color:var(--ink-soft);font-size:1rem}
+  /* proof */
+  .proof{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .proof blockquote{margin:0;font-family:"Inter Tight";font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:500;letter-spacing:-0.015em;line-height:1.3}
+  .proof cite{display:block;font-style:normal;color:var(--ink-dim);font-size:15px;margin-top:18px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .stat b{display:block;font-family:"Inter Tight";font-size:2.4rem;font-weight:600;letter-spacing:-0.03em}
+  .stat span{color:var(--ink-soft);font-size:15px}
+  /* assess */
+  .assess{background:#f7f8fa;border-radius:16px;padding:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+  .assess h2{font-size:1.9rem}
+  .fake-form{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;gap:12px}
+  .fake-form label{font-size:13px;color:var(--ink-dim)}
+  .fake-form .field{height:44px;border:1px solid var(--line);border-radius:8px;padding:0 12px;display:flex;align-items:center;color:var(--ink-dim);font-size:15px}
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--ink-dim);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .tag{position:fixed;right:16px;bottom:16px;background:var(--ink);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px;opacity:.85}
+  @media(max-width:820px){.steps,.proof,.assess,.stats{grid-template-columns:1fr}nav ul{display:none}.hero{padding:72px 0 64px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="wordmark" href="#">Novaric <span class="star"></span></a>
+  <ul><li>How it works</li><li>Proof</li><li>Is AI a fit?</li><li>About</li></ul>
+  <a class="btn btn-primary btn-sm" href="#">Talk to an engineer</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker"><span class="star"></span>AI enablement for operations teams</div>
+  <h1>We help your team <em>actually use AI.</em></h1>
+  <p class="lede">A Novaric engineer joins your team for a few weeks, builds AI into the tools you already run, and teaches your people to keep it going. No deck. No demo. Working software your staff operate.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="#">Talk to an engineer</a>
+    <a class="btn btn-ghost" href="#">Is AI right for your workflow? →</a>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <h2>What an engagement looks like</h2>
+  <p class="sub">Three steps. Usually six to eight weeks. Your team ends up owning it.</p>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h3>We sit with your team</h3><p>One senior engineer embeds with the people doing the work. We learn the workflow before we touch anything.</p></div>
+    <div class="step"><div class="n">02</div><h3>We build inside your stack</h3><p>AI goes where the work already happens: your CRM, your inbox, your spreadsheets, your ticketing system.</p></div>
+    <div class="step"><div class="n">03</div><h3>Your people run it</h3><p>We hand over something your staff operate and extend without us. Training is part of the job, not an upsell.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap proof">
+  <div>
+    <blockquote>“They didn't sell us AI. They sat in our leasing office for a month and made the thing we hated doing disappear.”</blockquote>
+    <cite>Operations lead, property management client</cite>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>6–8 wks</b><span>Typical engagement</span></div>
+    <div class="stat"><b>1</b><span>Engineer, embedded with your team</span></div>
+    <div class="stat"><b>0</b><span>New platforms to buy</span></div>
+    <div class="stat"><b>100%</b><span>Operated by your people after handoff</span></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="assess">
+    <div>
+      <div class="kicker"><span class="star"></span>Free, two minutes</div>
+      <h2>Is AI right for your workflow?</h2>
+      <p class="sub" style="margin-top:12px">Answer five questions and get an honest read: where AI would help, where it won't, and what we'd do first.</p>
+    </div>
+    <div class="fake-form">
+      <label>What does your team spend the most time on?</label><div class="field">Chasing documents and status updates…</div>
+      <label>Where does that work live today?</label><div class="field">Email, spreadsheets, a property system</div>
+      <a class="btn btn-primary" href="#">Get my assessment</a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>© Novaric Labs · Charlotte, NC</span><span>hello@novariclabs.com</span></div></footer>
+<div class="tag">Direction A · Plainspoken</div>
+</body>
+</html>

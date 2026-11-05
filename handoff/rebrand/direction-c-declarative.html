@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction C — Declarative · Novaric Labs rebrand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0b1c4b;--ink-soft:#4f5873;--ink-dim:#8d94a8;--white:#fff;--gold:#f5b94a;--line:#e3e5ea}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--white);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;font-weight:700;letter-spacing:-0.04em;line-height:.92;margin:0}
+  p{margin:0} a{color:inherit;text-decoration:none}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+  .wrap{width:min(1280px,calc(100% - 48px));margin:0 auto}
+  nav{position:sticky;top:0;background:#fff;z-index:9}
+  nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:84px}
+  nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+  nav ul.r{justify-content:flex-end}
+  .wordmark{display:flex;align-items:center;gap:8px;font-family:"Space Grotesk";font-weight:700;font-size:30px;letter-spacing:-0.05em;justify-self:center}
+  .star{width:16px;height:16px;background:var(--gold);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+  /* hero: stacked words */
+  .hero{padding:48px 0 72px;text-align:center}
+  .hero .stack{font-family:"Space Grotesk";font-weight:700;font-size:clamp(4rem,15vw,15rem);line-height:.84;letter-spacing:-0.06em;text-transform:uppercase}
+  .hero .stack span{display:block}
+  .hero .stack .gold{color:var(--gold)}
+  .hero .sub{margin:40px auto 0;max-width:46ch;color:var(--ink-soft);font-size:1.15rem}
+  .hero .mono{display:block;margin-bottom:28px}
+  .btn{display:inline-flex;align-items:center;padding:14px 26px;border:1.5px solid var(--ink);border-radius:4px;font-weight:500;font-size:15px;letter-spacing:.01em}
+  .btn.fill{background:var(--ink);color:#fff}
+  .actions{display:flex;gap:12px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+  /* marquee of roles, à la Satyress */
+  .roles{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;white-space:nowrap}
+  .roles .track{display:inline-block;font-family:"Space Grotesk";font-weight:500;font-size:1.6rem;letter-spacing:-0.02em;color:var(--ink-soft)}
+  .roles .track i{font-style:normal;margin:0 28px;color:var(--gold)}
+  /* three claims, large */
+  .claims{padding:112px 0}
+  .claim{display:grid;grid-template-columns:120px 1fr 1fr;gap:32px;padding:40px 0;border-top:1px solid var(--line);align-items:start}
+  .claim:last-child{border-bottom:1px solid var(--line)}
+  .claim h3{font-size:clamp(1.8rem,3.4vw,2.8rem)}
+  .claim p{color:var(--ink-soft);max-width:44ch;padding-top:8px}
+  /* dark full-bleed proof */
+  .dark{background:var(--ink);color:#fff;padding:112px 0}
+  .dark .grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .dark h2{font-size:clamp(2.4rem,5vw,4.4rem)}
+  .dark p{color:#c7cde0;margin-top:20px;max-width:42ch}
+  .dark .mono{color:#8f98b5}
+  .dark .panel{background:#122758;border-radius:8px;padding:28px;font-family:"JetBrains Mono";font-size:13px;line-height:1.8;color:#c7cde0}
+  .dark .panel b{color:var(--gold);font-weight:500}
+  /* fit check */
+  .fit{padding:112px 0;text-align:center}
+  .fit h2{font-size:clamp(2.4rem,6vw,5.2rem);max-width:14ch;margin:0 auto 20px}
+  .fit p{color:var(--ink-soft);max-width:48ch;margin:0 auto 32px}
+  footer{border-top:1px solid var(--line);padding:36px 0}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .tag{position:fixed;right:16px;bottom:16px;background:var(--ink);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px;opacity:.85}
+  @media(max-width:860px){nav .wrap{grid-template-columns:1fr auto}nav ul{display:none}.claim{grid-template-columns:1fr}.dark .grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <ul class="mono"><li>How it works</li><li>Proof</li></ul>
+  <a class="wordmark" href="#">Novaric <span class="star"></span></a>
+  <ul class="mono r"><li>Fit check</li><li>Contact</li></ul>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="mono">AI enablement · Charlotte, NC</span>
+  <div class="stack" aria-label="Actually use AI"><span>Actually</span><span>use</span><span class="gold">AI.</span></div>
+  <p class="sub">A senior engineer embeds with your operations team, builds AI into the tools you already run, and leaves your people able to keep it going. Not a deck. Not a demo.</p>
+  <div class="actions">
+    <a class="btn fill" href="#">Talk to an engineer</a>
+    <a class="btn" href="#">2-minute fit check</a>
+  </div>
+</div></header>
+
+<div class="roles"><div class="track">We build for <i>✦</i> leasing teams <i>✦</i> back offices <i>✦</i> dispatchers <i>✦</i> claims teams <i>✦</i> clinic admins <i>✦</i> paralegals <i>✦</i> ops managers <i>✦</i> leasing teams <i>✦</i> back offices <i>✦</i> dispatchers</div></div>
+
+<section class="claims"><div class="wrap">
+  <div class="claim"><span class="mono">01 / Find</span><h3>We sit with the people doing the work.</h3><p>One engineer, on site, mapping the real flow including the workarounds. We learn the workflow before we touch anything.</p></div>
+  <div class="claim"><span class="mono">02 / Build</span><h3>Inside the tools you already run.</h3><p>Email, spreadsheets, your CRM, your property system. Agents handle the volume; people keep the decisions that carry risk.</p></div>
+  <div class="claim"><span class="mono">03 / Hand off</span><h3>Code handed over, not held hostage.</h3><p>You own what we build. Training your team to run and extend it is part of the job.</p></div>
+</div></section>
+
+<section class="dark"><div class="wrap grid">
+  <div>
+    <span class="mono">Proof · Property management</span>
+    <h2>A back office that runs itself, mostly.</h2>
+    <p>Lease processing, maintenance routing, tenant communication, and vendor coordination, with a human signing off on anything involving money or lease terms.</p>
+  </div>
+  <div class="panel">
+    <div>week 00 &nbsp; <b>scope</b> &nbsp; one workflow, fixed price</div>
+    <div>week 01–02 <b>embed</b> &nbsp; engineer on site, read-only access</div>
+    <div>week 03–08 <b>ship</b> &nbsp; live inside your stack, approvals widen as trust builds</div>
+    <div>ongoing &nbsp; <b>hand off</b> &nbsp; your team runs it. or we stay.</div>
+  </div>
+</div></section>
+
+<section class="fit"><div class="wrap">
+  <span class="mono" style="display:block;margin-bottom:24px">Free · No email required</span>
+  <h2>Is AI right for your workflow?</h2>
+  <p>Five questions, one candid read. We'll tell you to wait if you should wait.</p>
+  <a class="btn fill" href="#">Start the fit check</a>
+</div></section>
+
+<footer><div class="wrap mono"><span>Novaric Labs · Built in Charlotte</span><span>hello@novariclabs.com</span></div></footer>
+<div class="tag">Direction C · Declarative</div>
+</body>
+</html>
