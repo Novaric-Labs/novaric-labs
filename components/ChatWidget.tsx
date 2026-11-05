@@ -8,13 +8,13 @@ type Msg = { role: "user" | "assistant"; content: string };
 const GREETING: Msg = {
   role: "assistant",
   content:
-    "Hi — I'm the Novaric Labs assistant. Ask me about our services, the property management platform, or how an engagement works.",
+    "Hi, I'm the Novaric assistant. Ask me how we help teams actually use AI, what the first eight weeks look like, or whether your workflow is a fit.",
 };
 
 const SUGGESTIONS = [
-  "What does Novaric Labs build?",
-  "Tell me about the property platform",
-  "How do engagements start?",
+  "How would you help my team actually use AI?",
+  "What do the first eight weeks look like?",
+  "Who ends up running what you build?",
 ];
 
 export default function ChatWidget() {
@@ -103,7 +103,7 @@ export default function ChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close Ask Novaric chat" : "Open Ask Novaric chat"}
         aria-expanded={open}
-        className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full border border-amber bg-amber text-onamber shadow-lg transition-transform hover:scale-105 hover:bg-amber-hot sm:bottom-6 sm:right-6"
+        className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-lg transition-transform hover:scale-105 hover:bg-ink-2 sm:bottom-6 sm:right-6"
       >
         {open ? <X size={24} /> : <MessageSquare size={24} />}
       </button>
@@ -113,16 +113,16 @@ export default function ChatWidget() {
         <div
           role="dialog"
           aria-label="Ask Novaric"
-          className="fixed bottom-24 right-4 z-50 flex h-[min(560px,calc(100vh-7rem))] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden border border-alu-hi bg-hull shadow-2xl shadow-black/60 sm:right-6"
+          className="fixed bottom-24 right-4 z-50 flex h-[min(560px,calc(100vh-7rem))] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden rounded-md border border-line bg-white shadow-2xl shadow-ink/20 sm:right-6"
         >
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-alu bg-hull-2 px-5 py-4 text-fg">
-            <span className="inline-flex h-9 w-9 items-center justify-center border border-alu-hi text-amber">
+          <div className="flex items-center gap-3 border-b border-line bg-paper px-5 py-4 text-ink">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-gold">
               <Sparkles size={18} />
             </span>
             <div className="leading-tight">
-              <p className="font-display text-sm font-semibold uppercase tracking-wide">Ask Novaric</p>
-              <p className="text-xs text-fg-soft">Usually replies instantly</p>
+              <p className="text-sm font-medium">Ask Novaric</p>
+              <p className="text-xs text-ink-soft">Usually replies instantly</p>
             </div>
           </div>
 
@@ -139,12 +139,12 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed ${
                     m.role === "user"
-                      ? "rounded-br-sm bg-amber text-onamber"
-                      : "rounded-bl-sm border border-alu bg-hull-2 text-fg"
+                      ? "rounded-br-sm bg-ink text-white"
+                      : "rounded-bl-sm border border-line bg-paper text-ink"
                   }`}
                 >
                   {m.content || (
-                    <Loader2 size={16} className="animate-spin text-fg-dim" />
+                    <Loader2 size={16} className="animate-spin text-ink-dim" />
                   )}
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function ChatWidget() {
                     key={s}
                     type="button"
                     onClick={() => send(s)}
-                    className="block w-full border border-alu px-3.5 py-2.5 text-left text-[13px] text-fg-soft transition-colors hover:border-amber hover:text-fg"
+                    className="block w-full rounded border border-line px-3.5 py-2.5 text-left text-[13px] text-ink-soft transition-colors hover:border-ink hover:text-ink"
                   >
                     {s}
                   </button>
@@ -172,7 +172,7 @@ export default function ChatWidget() {
               e.preventDefault();
               send(input);
             }}
-            className="border-t border-alu p-3"
+            className="border-t border-line p-3"
           >
             <div className="flex items-end gap-2">
               <input
@@ -181,13 +181,13 @@ export default function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask a question…"
                 aria-label="Message"
-                className="flex-1 border border-alu bg-void px-4 py-2.5 text-sm text-fg placeholder:text-fg-dim focus:border-amber focus:outline-none"
+                className="flex-1 rounded border border-line bg-white px-4 py-2.5 text-sm text-ink placeholder:text-ink-dim focus:border-ink focus:outline-none"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || streaming}
                 aria-label="Send message"
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center bg-amber text-onamber transition-colors hover:bg-amber-hot disabled:opacity-40"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded bg-ink text-white transition-colors hover:bg-ink-2 disabled:opacity-40"
               >
                 {streaming ? (
                   <Loader2 size={18} className="animate-spin" />
@@ -196,7 +196,7 @@ export default function ChatWidget() {
                 )}
               </button>
             </div>
-            <p className="mt-2 text-center text-[11px] text-fg-dim">
+            <p className="mt-2 text-center text-[11px] text-ink-dim">
               Powered by Claude · Answers may be imperfect
             </p>
           </form>

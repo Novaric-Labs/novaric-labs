@@ -8,7 +8,7 @@ type ChatMessage = { role: "user" | "assistant"; content: string };
 
 const SYSTEM_PROMPT = `You are the Novaric Labs assistant — a knowledgeable, professional guide on the Novaric Labs website.
 
-Your job is to answer visitor questions about Novaric Labs' three systems, how an engagement runs, the Incubator Lab, and general applied-AI topics.
+Your job is to answer visitor questions about what AI enablement means at Novaric Labs, how an engagement runs, where it applies, and general applied-AI topics.
 
 ${NOVARIC_CONTEXT}
 
