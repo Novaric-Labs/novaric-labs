@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction B — Soft Grid · Novaric Labs rebrand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1c4b; --ink-soft:#4f5873; --ink-dim:#8d94a8;
+    --canvas:#f4f5f7; --panel:#e9ebef; --white:#fff; --gold:#f5b94a;
+    --r:20px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Manrope,Inter,system-ui,sans-serif;font-weight:700;letter-spacing:-0.035em;line-height:.98;margin:0}
+  p{margin:0} a{color:inherit;text-decoration:none}
+  .wrap{width:min(1240px,calc(100% - 48px));margin:0 auto}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:88px}
+  .wordmark{display:flex;align-items:center;gap:8px;font-family:Manrope;font-weight:700;font-size:28px;letter-spacing:-0.04em}
+  .star{width:16px;height:16px;background:var(--gold);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+  nav ul{display:flex;gap:36px;list-style:none;margin:0;padding:0;font-size:17px;color:var(--ink-soft)}
+  .pill{display:inline-flex;align-items:center;padding:12px 22px;border-radius:999px;font-weight:600;font-size:15px;background:var(--ink);color:#fff}
+  .pill.light{background:var(--white);color:var(--ink);border:1px solid #dcdfe6}
+  .pill.gold{background:var(--gold);color:#2b1d00}
+  /* hero: big split headline with inset visual, à la Ode */
+  .hero{padding:72px 0 40px}
+  .hero h1{font-size:clamp(3.2rem,9.4vw,9rem)}
+  .hero .l1{display:block}
+  .hero .row{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px}
+  .hero .visual{width:min(420px,38vw);aspect-ratio:1.15/1;border-radius:var(--r);background:
+     radial-gradient(circle at 70% 30%,#fff3d1 0,transparent 42%),
+     linear-gradient(135deg,#0b1c4b 0%,#20356f 60%,#3b4f8c 100%);position:relative;overflow:hidden;margin:-30px 10% -56px auto;z-index:1}
+  .hero .visual::after{content:"";position:absolute;inset:auto 22% 22% auto;width:56px;height:56px;background:var(--gold);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+  .hero .visual span{position:absolute;left:22px;bottom:18px;color:#fff;font-size:13px;opacity:.75;letter-spacing:.04em;text-transform:uppercase}
+  .hero .l2{display:block;text-align:right;position:relative;z-index:2}
+  .intro{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;padding:72px 0 96px;align-items:start}
+  .intro .photo{aspect-ratio:4/3;border-radius:var(--r);background:linear-gradient(160deg,#dfe3ea,#c9cfda);display:flex;align-items:end;padding:18px;color:var(--ink-dim);font-size:13px}
+  .intro h2{font-size:clamp(1.8rem,3.4vw,2.7rem);letter-spacing:-0.03em;line-height:1.12;font-weight:600}
+  .intro h2 b{color:var(--ink);font-weight:700}
+  .intro .actions{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+  /* tiles */
+  section{padding:48px 0 96px}
+  .label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:22px;font-weight:500}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tile{background:var(--panel);border-radius:var(--r);padding:32px;min-height:300px;display:flex;flex-direction:column;justify-content:space-between}
+  .tile .num{font-family:Manrope;font-weight:700;font-size:15px;color:var(--ink-dim)}
+  .tile h3{font-size:1.5rem;letter-spacing:-0.025em;line-height:1.1;margin-bottom:10px}
+  .tile p{color:var(--ink-soft);font-size:16px}
+  .tile.accent{background:var(--ink);color:#fff}
+  .tile.accent p{color:#c7cde0}
+  .tile.accent .num{color:var(--gold)}
+  /* case strip */
+  .case{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+  .case .img{border-radius:var(--r);background:linear-gradient(135deg,#d5d9e2,#eceef3);min-height:380px}
+  .case .body{background:var(--white);border-radius:var(--r);padding:40px;display:flex;flex-direction:column;justify-content:space-between}
+  .case h3{font-size:1.9rem;letter-spacing:-0.03em;line-height:1.05}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .chip{font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:1px solid #dcdfe6;border-radius:999px;padding:6px 12px;color:var(--ink-soft)}
+  blockquote{margin:0;font-family:Manrope;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:600;letter-spacing:-0.03em;line-height:1.15;max-width:26ch}
+  cite{display:block;font-style:normal;color:var(--ink-dim);font-size:15px;margin-top:20px}
+  /* dark footer block */
+  .cta{background:var(--ink);color:#fff;border-radius:var(--r) var(--r) 0 0;padding:96px 0 48px}
+  .cta h2{font-size:clamp(2.6rem,6vw,5rem);max-width:12ch}
+  .cta p{color:#c7cde0;max-width:48ch;margin:24px 0 32px}
+  .cta .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:96px;color:#8f98b5;font-size:14px;border-top:1px solid #243465;padding-top:28px}
+  .tag{position:fixed;right:16px;bottom:16px;background:var(--ink);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px;opacity:.85}
+  @media(max-width:860px){.tiles,.case,.intro{grid-template-columns:1fr}nav ul{display:none}.hero .row{grid-template-columns:1fr}.hero .visual{margin:16px 0}.hero .l2{text-align:left}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="wordmark" href="#">Novaric <span class="star"></span></a>
+  <ul><li>How it works</li><li>Work</li><li>Fit check</li><li>Team</li><li>Contact</li></ul>
+  <a class="pill" href="#">Talk to us</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <h1>
+    <span class="l1">AI your team</span>
+    <div class="row"><div></div><div class="visual" role="img" aria-label="Abstract visual"><span>Charlotte, NC</span></div></div>
+    <span class="l2">actually uses.</span>
+  </h1>
+</div></header>
+
+<div class="wrap intro">
+  <div class="photo">Photo: an engineer at a client's desk</div>
+  <div>
+    <h2><b>Novaric</b> is a small engineering team that embeds with operations teams, builds AI into the tools they already run, and leaves them able to keep it going.</h2>
+    <div class="actions">
+      <a class="pill gold" href="#">Is AI right for your workflow? · 2 min</a>
+      <a class="pill light" href="#">How it works</a>
+    </div>
+  </div>
+</div>
+
+<section><div class="wrap">
+  <div class="label">What enablement means here</div>
+  <div class="tiles">
+    <div class="tile"><div class="num">01</div><div><h3>Find the workflow worth fixing</h3><p>An engineer sits with the people doing the job and maps the real flow, workarounds included.</p></div></div>
+    <div class="tile"><div class="num">02</div><div><h3>Build it inside your tools</h3><p>Email, spreadsheets, your CRM, your property system. People approve the steps that carry risk.</p></div></div>
+    <div class="tile accent"><div class="num">03</div><div><h3>Your people own it</h3><p>Code, prompts, and the runbook are yours. Training is part of the job, not an upsell.</p></div></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="label">Recent work</div>
+  <div class="case">
+    <div class="img"></div>
+    <div class="body">
+      <div><h3>A property-management back office that runs itself, mostly.</h3>
+        <div class="chips"><span class="chip">Lease processing</span><span class="chip">Maintenance routing</span><span class="chip">Tenant comms</span><span class="chip">Human sign-off on money</span></div></div>
+      <a class="pill light" href="#" style="align-self:flex-start;margin-top:28px">Read the story</a>
+    </div>
+  </div>
+</div></section>
+
+<section style="padding-top:24px"><div class="wrap">
+  <blockquote>“The hard part was never the model. It was making automation that operations teams actually trust enough to run every day.”</blockquote>
+  <cite>Novaric Labs, founding principle</cite>
+</div></section>
+
+<div class="cta"><div class="wrap">
+  <h2>Tell us about the workflow that's costing you the most.</h2>
+  <p>A straight answer on whether, and how, AI fits. A fixed-price scope if it does.</p>
+  <a class="pill gold" href="#">Start the conversation</a>
+  <div class="foot"><span>Novaric Labs · Charlotte, NC</span><span>hello@novariclabs.com</span><span>LinkedIn</span></div>
+</div></div>
+<div class="tag">Direction B · Soft Grid</div>
+</body>
+</html>

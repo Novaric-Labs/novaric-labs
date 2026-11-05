@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction E — Warm Editorial · Novaric Labs rebrand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Principle: warmth and trust through typography. Serif display on warm paper,
+     prose-first, generous measure, a letter from the people doing the work.
+     Reads like a good magazine or a well-set book, not a SaaS page. */
+  :root{--ink:#1a2140;--navy:#0b1c4b;--ink-soft:#5a5f70;--ink-dim:#9a9ca8;--paper:#f7f3ec;--paper-2:#efe9df;--gold:#d9a23a;--line:#e1dacd}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;font-weight:400;letter-spacing:-0.015em;line-height:1.08;margin:0}
+  p{margin:0} a{color:inherit;text-decoration:none}
+  .wrap{width:min(1100px,calc(100% - 48px));margin:0 auto}
+  .narrow{width:min(680px,calc(100% - 48px));margin:0 auto}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .wordmark{font-family:Fraunces,serif;font-size:26px;display:flex;align-items:center;gap:8px;color:var(--navy)}
+  .star{width:13px;height:13px;background:var(--gold);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+  nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--ink-soft)}
+  .btn{display:inline-flex;align-items:center;padding:12px 20px;border-radius:999px;font-weight:500;font-size:15px;background:var(--navy);color:#fff}
+  .btn.outline{background:transparent;color:var(--navy);border:1px solid var(--navy)}
+  /* hero */
+  .hero{padding:96px 0 72px;text-align:center}
+  .hero .eyebrow{font-size:14px;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:28px}
+  .hero h1{font-size:clamp(2.8rem,6.4vw,5.6rem);max-width:17ch;margin:0 auto;color:var(--navy)}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--gold)}
+  .hero p{font-size:1.2rem;color:var(--ink-soft);max-width:48ch;margin:32px auto 36px}
+  .hero .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .photo{margin:72px auto 0;width:min(1100px,calc(100% - 48px));aspect-ratio:21/9;border-radius:6px;background:linear-gradient(160deg,#d9d2c3,#c3bba8);display:flex;align-items:end;padding:20px;color:#6a6456;font-size:13px}
+  /* letter */
+  .letter{padding:96px 0}
+  .letter h2{font-size:clamp(1.9rem,3.6vw,2.8rem);color:var(--navy);margin-bottom:28px}
+  .letter p{margin-bottom:22px;font-size:1.08rem}
+  .letter p:first-of-type::first-letter{font-family:Fraunces,serif;font-size:3.4em;float:left;line-height:.8;padding:6px 10px 0 0;color:var(--navy)}
+  .sig{font-family:Fraunces,serif;font-style:italic;color:var(--ink-soft);margin-top:12px}
+  /* three promises */
+  .promises{background:var(--paper-2);padding:88px 0}
+  .promises .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+  .promises h3{font-size:1.6rem;color:var(--navy);margin-bottom:12px}
+  .promises p{color:var(--ink-soft);font-size:1rem}
+  .promises .k{font-size:13px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;display:block}
+  /* story */
+  .story{padding:96px 0}
+  .story .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .story .img{aspect-ratio:4/5;border-radius:6px;background:linear-gradient(160deg,#d9d2c3,#c3bba8)}
+  .story h2{font-size:clamp(1.9rem,3.6vw,2.8rem);color:var(--navy);margin-bottom:20px}
+  .story p{color:var(--ink-soft);margin-bottom:18px}
+  .story blockquote{margin:28px 0 0;padding-left:20px;border-left:2px solid var(--gold);font-family:Fraunces,serif;font-style:italic;font-size:1.25rem;line-height:1.4;color:var(--ink)}
+  /* fit */
+  .fit{padding:88px 0;text-align:center;border-top:1px solid var(--line)}
+  .fit h2{font-size:clamp(2rem,4.4vw,3.4rem);color:var(--navy);max-width:16ch;margin:0 auto 18px}
+  .fit p{color:var(--ink-soft);max-width:44ch;margin:0 auto 32px}
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--ink-dim);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .tag{position:fixed;right:16px;bottom:16px;background:var(--navy);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px;opacity:.85}
+  @media(max-width:860px){.promises .wrap,.story .wrap{grid-template-columns:1fr}nav ul{display:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="wordmark" href="#">Novaric <span class="star"></span></a>
+  <ul><li>Our approach</li><li>Stories</li><li>Fit check</li><li>People</li></ul>
+  <a class="btn" href="#">Say hello</a>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">AI enablement, done alongside you</div>
+    <h1>Help your team feel <em>at home</em> with AI.</h1>
+    <p>We're a small engineering team in Charlotte. We sit with your people, build AI into the work they already do, and stay until they can run it without us.</p>
+    <div class="actions"><a class="btn" href="#">Say hello</a><a class="btn outline" href="#">Is AI right for us? A two-minute check</a></div>
+  </div>
+  <div class="photo">Photo: a real engagement. People at a desk, no stock imagery.</div>
+</header>
+
+<section class="letter"><div class="narrow">
+  <h2>Most AI projects fail at the handoff. So we never leave before it works.</h2>
+  <p>Plenty of teams can call an AI model. Fewer understand what it takes to run automation inside a business that can't afford to break. The hard part was never the model. It was making something an operations team trusts enough to run every day.</p>
+  <p>So we do it the slow way. One engineer joins your team for about eight weeks. The first two are spent watching and listening, with read-only access to your systems. Then we build inside the tools you already use, and we put a person in front of every decision that carries risk. By the end, your people own it: the code, the prompts, the runbook, and the habits.</p>
+  <p>No deck. No demo. Working software your staff operate.</p>
+  <p class="sig">The Novaric team</p>
+</div></section>
+
+<section class="promises"><div class="wrap">
+  <div><span class="k">We integrate</span><h3>Your tools stay your tools.</h3><p>Email, spreadsheets, your CRM, your property system. We don't ask you to buy a platform.</p></div>
+  <div><span class="k">We keep people in charge</span><h3>Agents do the volume. People keep the judgment.</h3><p>Anything involving money, contracts, or a customer gets a human sign-off, widening as trust builds.</p></div>
+  <div><span class="k">We hand over</span><h3>Code handed over, not held hostage.</h3><p>Training your team is part of the job. You can keep us on, but you'll never need to.</p></div>
+</div></section>
+
+<section class="story"><div class="wrap">
+  <div class="img"></div>
+  <div>
+    <span class="k" style="font-size:13px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:16px">A story from the field</span>
+    <h2>The leasing office that stopped chasing paperwork.</h2>
+    <p>Lease processing, maintenance routing, tenant communication, and vendor coordination for a property-management group. A human signs off on anything involving money or lease terms.</p>
+    <blockquote>“They didn't sell us AI. They sat in our office for a month and made the thing we hated doing disappear.”</blockquote>
+  </div>
+</div></section>
+
+<section class="fit"><div class="wrap">
+  <h2>Not sure AI is right for your workflow? Ask.</h2>
+  <p>Five questions, one honest answer. We'll tell you to wait if you should wait. No email required.</p>
+  <a class="btn" href="#">Take the two-minute check</a>
+</div></section>
+
+<footer><div class="wrap"><span>Novaric Labs · Charlotte, NC</span><span>hello@novariclabs.com</span></div></footer>
+<div class="tag">Direction E · Warm Editorial</div>
+</body>
+</html>
